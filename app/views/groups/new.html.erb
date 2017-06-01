@@ -1,0 +1,13 @@
+<div class="page-header">
+<h2>New Group</h2>
+<ul class="actions">
+	<li><%= link_to "Back", groups_path, class: "btn btn-primary" %></li>
+</ul>
+</div>
+
+<%= simple_form_for(@group) do |f| %>
+	<%= f.input :tutor %>
+	<%= f.input :schedule %>
+
+	<%= f.button :submit, class: "btn-primary" %>
+<% end %>

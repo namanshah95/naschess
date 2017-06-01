@@ -1,0 +1,33 @@
+<div class="page-header">
+<h2>Admin Portal</h2>
+<ul class="actions">
+	<li><%= link_to "New Group", new_group_path, class: "btn btn-success" %></li>
+</ul>
+</div>
+
+
+<% groups_enum = @groups.each %>
+<% (0..@groups.count/4).each do |i| %>
+<div class="row">
+	<% (0..3).each do |j| %>
+	<% if i*4+j < @groups.count %>
+	<% group = groups_enum.next %>
+	<div class="col-sm-3">
+		<div class="panel panel-primary">
+			<div class="panel-heading">Group #<%= group.id %><%= link_to "Edit", edit_group_path(group), class: "btn btn-warning" %></div>
+			<div class="panel-body">
+				<p>Tutor: <%= group.tutor %></p>
+				<p>Schedule: <%= group.schedule %></p>
+				<ul>
+					<li>Child 1</li>
+					<li>Child 2</li>
+					<li>Child 3</li>
+					<li>Child 4</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+</div>
+<% end %>
