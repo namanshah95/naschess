@@ -8,6 +8,7 @@
 <%= simple_form_for(@group) do |f| %>
 	<%= f.input :tutor %>
 	<%= f.input :schedule %>
+	<%= f.input :child1, collection: @groupless %>
 
 	<%= f.button :submit, class: "btn-primary" %>
 <% end %>

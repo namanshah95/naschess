@@ -1,0 +1,15 @@
+<div class="page-header">
+<h2>Add Child</h2>
+<ul class="actions">
+	<li><%= link_to "Back", children_path, class: "btn btn-primary" %></li>
+</ul>
+</div>
+
+<%= simple_form_for(@child) do |f| %>
+	<%= f.input :name %>
+	<%= f.input :age, collection: 5..13 %>
+	<%= f.input :grade, collection: 1..8 %>
+	<%= f.input :skill, collection: 1..10 %>
+
+	<%= f.button :submit, class: "btn-primary" %>
+<% end %>

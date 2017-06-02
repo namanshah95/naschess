@@ -1,0 +1,26 @@
+<div class="page-header">
+<h2>Children</h2>
+<ul class="actions">
+</ul>
+</div>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+	<thead>
+		<td>Name</td>
+		<td>Parent</td>
+		<td>Group</td>
+		<td>Tutor</td>
+		<td></td>
+	</thead>
+	<% @children.each do |child| %>
+		<tr class=<%= child.group_id == nil ? "danger" : "" %>>
+			<td><%= child.name %></td>
+			<td><%= link_to "Parent", groups_path %></td>
+			<td><%= child.group_id == nil ? "Unassigned" : "Group #" + child.group_id.to_s %></td>
+			<td><%= child.group_id == nil ? "N/A" : (link_to Group.find(child.group_id).tutor, groups_path) %></td>
+			<td><%= link_to "View", child_path(child), class: "btn btn-primary" %></td>
+		</tr>
+	<% end %>
+</table>
+</div>

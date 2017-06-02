@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601020847) do
+ActiveRecord::Schema.define(version: 20170601090544) do
+
+  create_table "children", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "age"
+    t.integer  "grade"
+    t.integer  "skill"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_children_on_group_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string   "schedule"

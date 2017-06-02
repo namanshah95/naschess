@@ -6,12 +6,14 @@ class GroupsController < ApplicationController
 
 	def new
 		@group = Group.new
+		@groupless = Child.where(group_id: nil)
 	end
 
 	def create
 		@group = Group.new(group_params)
 
-		if @group.save
+		child1 = Child.find(group_params[:child1])
+		if @group.save and child1.update_attribute(:group_id, @group.id)
 			flash[:notice] = "New group has been successfully created!"
 			redirect_to groups_path
 		else
@@ -39,6 +41,6 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-		params.require(:group).permit(:tutor, :schedule)
+		params.require(:group).permit(:tutor, :schedule, :child1, :child2, :child3, :child4)
 	end
 end
