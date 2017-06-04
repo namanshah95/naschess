@@ -1,11 +1,12 @@
 <div class="page-header">
-<h2><%= @child.name %></h2>
+<h2><%= @child.name %>'s Profile</h2>
 <ul class="actions">
 	<li><%= link_to "Back", children_path, class: "btn btn-primary" %></li>
 	<li><%= link_to "Edit", edit_child_path(@child), class: "btn btn-warning" %></li>
 </ul>
 </div>
 
+<p>Parent: <%= link_to @child.parent.to_s + "parent", groups_path %></p>
 <p>Age: <%= @child.age %></p>
 <p>Grade: <%= @child.grade %></p>
 <p>Skill: <%= @child.skill %></p>
@@ -13,7 +14,7 @@
 <% if @child.group_id == nil %>
 	<p>Group Unassigned</p>
 <% else %>
-	<p>Member of Group #<%= @child.group_id %> (Tutor: <%= link_to Group.find(@child.group_id).tutor, groups_path %>)</p>
+	<p>Member of Group #<%= @child.group_id %> (Tutor: <%= link_to Group.find(@child.group_id).tutor, groups_path %>) <%= link_to "Drop", groups_path, class: "btn btn-danger" %></p>
 <% end %>
 
 <h3>Attendence History</h3>

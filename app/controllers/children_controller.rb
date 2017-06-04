@@ -16,7 +16,7 @@ class ChildrenController < ApplicationController
 		@child = Child.new(child_params)
 
 		if @child.save
-			flash[:notice] = "New child has been created successfully!"
+			flash[:notice] = "New child has been added successfully!"
 			redirect_to child_path(@child)
 		else
 			flash.now[:alert] = "Not able to add child!"
@@ -25,10 +25,19 @@ class ChildrenController < ApplicationController
 	end
 
 	def edit
-		redirect_to child_path(params[:id])
+		@child = Child.find(params[:id])
 	end
 
 	def update
+		@child = Child.find(params[:id])
+
+		if @child.update(child_params)
+			flash[:notice] = @child.name + "'s profile has been successfully updated!"
+			redirect_to child_path(@child)
+		else
+			flash.now[:alert] = "Not able to update " + @child.name + "'s profile!"
+			render "edit"
+		end
 	end
 
 	private

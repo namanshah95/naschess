@@ -12,8 +12,12 @@ class GroupsController < ApplicationController
 	def create
 		@group = Group.new(group_params)
 
-		child1 = Child.find(group_params[:child1])
-		if @group.save and child1.update_attribute(:group_id, @group.id)
+		child1 = group_params[:child1] == "" ? nil : Child.find(group_params[:child1])
+		child2 = group_params[:child2] == "" ? nil : Child.find(group_params[:child2])
+		child3 = group_params[:child3] == "" ? nil : Child.find(group_params[:child3])
+		child4 = group_params[:child4] == "" ? nil : Child.find(group_params[:child4])
+		
+		if @group.save and (child1 == nil or child1.update_attribute(:group_id, @group.id)) and (child2 == nil or child2.update_attribute(:group_id, @group.id)) and (child3 == nil or child3.update_attribute(:group_id, @group.id)) and (child4 == nil or child4.update_attribute(:group_id, @group.id))
 			flash[:notice] = "New group has been successfully created!"
 			redirect_to groups_path
 		else
