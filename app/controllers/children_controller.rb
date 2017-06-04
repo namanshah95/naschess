@@ -40,6 +40,17 @@ class ChildrenController < ApplicationController
 		end
 	end
 
+	def drop
+		@child = Child.find(params[:id])
+
+		if @child.update_attribute(:group_id, nil)
+			flash[:notice] = @child.name + " has successfully dropped his/her group!"
+		else
+			flash.now[:alert] = "Unable to drop out of " + @child.name + "'s group!"
+		end
+		redirect_to child_path(@child)
+	end
+
 	private
 
 	def child_params

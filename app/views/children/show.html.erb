@@ -14,7 +14,7 @@
 <% if @child.group_id == nil %>
 	<p>Group Unassigned</p>
 <% else %>
-	<p>Member of Group #<%= @child.group_id %> (Tutor: <%= link_to Group.find(@child.group_id).tutor, groups_path %>) <%= link_to "Drop", groups_path, class: "btn btn-danger" %></p>
+	<p>Member of Group #<%= @child.group_id %> (Tutor: <%= link_to Group.find(@child.group_id).tutor, groups_path %>) <%= link_to "Drop", drop_path, class: "btn btn-danger", method: :patch %></p>
 <% end %>
 
 <h3>Attendence History</h3>

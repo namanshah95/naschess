@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   resources :groups
   resources :children
+  patch "children/:id/drop" => "children#drop", as: :drop
 end
