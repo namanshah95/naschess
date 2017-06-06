@@ -14,6 +14,7 @@ class ChildrenController < ApplicationController
 
 	def create
 		@child = Child.new(child_params)
+		@child.parent = current_parent
 
 		if @child.save
 			flash[:notice] = "New child has been added successfully!"
@@ -54,6 +55,6 @@ class ChildrenController < ApplicationController
 	private
 
 	def child_params
-		params.require(:child).permit(:name, :age, :grade, :skill)
+		params.require(:child).permit(:name, :age, :grade, :skill, :parent)
 	end
 end

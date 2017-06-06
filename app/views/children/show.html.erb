@@ -6,15 +6,16 @@
 </ul>
 </div>
 
-<p>Parent: <%= link_to @child.parent.to_s + "parent", groups_path %></p>
+<p>Parent: <%= link_to @child.parent.name, parent_path(@child.parent) %></p>
 <p>Age: <%= @child.age %></p>
 <p>Grade: <%= @child.grade %></p>
 <p>Skill: <%= @child.skill %></p>
 
-<% if @child.group_id == nil %>
+<% if @child.group.nil? %>
 	<p>Group Unassigned</p>
 <% else %>
-	<p>Member of Group #<%= @child.group_id %> (Tutor: <%= link_to Group.find(@child.group_id).tutor, groups_path %>) <%= link_to "Drop", drop_path, class: "btn btn-danger", method: :patch %></p>
+	<p>Member of Group #<%= @child.group.id %> (Tutor: <%= link_to @child.group.tutor, groups_path %>) <%= link_to "Drop", drop_path, class: "btn btn-danger", method: :patch %></p>
+	<p>Next Class:</p>
 <% end %>
 
 <h3>Attendence History</h3>

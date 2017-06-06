@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
     return new_user_session_url unless user_signed_in?
     case current_user.class.name
     when "Admin"
-      admin_root_url
+      groups_url
     when "Parent"
-      parent_root_url
+      parent_url(current_user)
     when "Tutor"
-      tutor_root_url
+      groups_url
     else
       root_url
     end if user_signed_in?
