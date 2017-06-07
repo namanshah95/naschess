@@ -1,5 +1,8 @@
 <div class="page-header">
 <h2><%= @tutor.name %>'s Profile</h2>
 <ul class="actions">
+	<% if admin_logged_in? %>
+		<li><%= link_to "Back", tutors_path, class: "btn btn-primary" %></li>
+	<% end %>
 </ul>
 </div>
