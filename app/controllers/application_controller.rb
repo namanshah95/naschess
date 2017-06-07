@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :current_admin, :current_parent, :current_tutor, :require_user!
+  helper_method :current_admin, :current_parent, :current_tutor, :admin_logged_in?, :parent_logged_in?, :tutor_logged_in?, :require_user!
 
   def after_sign_in_path_for(resource)
     return new_user_session_url unless user_signed_in?
@@ -47,11 +47,11 @@ class ApplicationController < ActionController::Base
 
     def require_user!(cond)
       if !cond
-        redirect_to user_url, status: 301, alert: "You are not authorized to view this content!" 
+        redirect_to profile, status: 301, alert: "You are not authorized to view this content!" 
       end
     end
 
-    def user_url
+    def profile
       case current_user.class.name
       when "Admin"
         admin_url(current_admin)
