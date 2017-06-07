@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   patch "children/:id/drop" => "children#drop", as: :drop
 
   resources :parents
+  resources :tutors
 end

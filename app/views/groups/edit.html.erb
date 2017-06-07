@@ -6,7 +6,7 @@
 </div>
 
 <%= simple_form_for(@group) do |f| %>
-	<%= f.input :tutor %>
+	<%= f.input :tutor, collection: @tutors, selected: @group.tutor %>
 	<%= f.input :schedule %>
 
 	<%= f.button :submit, class: "btn-primary" %>

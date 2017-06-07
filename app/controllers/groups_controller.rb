@@ -7,15 +7,18 @@ class GroupsController < ApplicationController
 	def new
 		@group = Group.new
 		@groupless = Child.where(group_id: nil)
+		@tutors = Tutor.all
 	end
 
 	def create
-		@group = Group.new(group_params)
+		gp = group_params
+		gp[:tutor] = Tutor.find(gp[:tutor])
+		@group = Group.new(gp)
 
-		child1 = group_params[:child1] == "" ? nil : Child.find(group_params[:child1])
-		child2 = group_params[:child2] == "" ? nil : Child.find(group_params[:child2])
-		child3 = group_params[:child3] == "" ? nil : Child.find(group_params[:child3])
-		child4 = group_params[:child4] == "" ? nil : Child.find(group_params[:child4])
+		child1 = gp[:child1] == "" ? nil : Child.find(gp[:child1])
+		child2 = gp[:child2] == "" ? nil : Child.find(gp[:child2])
+		child3 = gp[:child3] == "" ? nil : Child.find(gp[:child3])
+		child4 = gp[:child4] == "" ? nil : Child.find(gp[:child4])
 		
 		if @group.save and (child1.nil? or child1.update_attribute(:group_id, @group.id)) and (child2.nil? or child2.update_attribute(:group_id, @group.id)) and (child3.nil? or child3.update_attribute(:group_id, @group.id)) and (child4.nil? or child4.update_attribute(:group_id, @group.id))
 			flash[:notice] = "New group has been successfully created!"
@@ -28,12 +31,16 @@ class GroupsController < ApplicationController
 
 	def edit
 		@group = Group.find(params[:id])
+		@tutors = Tutor.all
 	end
 
 	def update
 		@group = Group.find(params[:id])
 
-		if @group.update(group_params)
+		gp = group_params
+		gp[:tutor] = Tutor.find(gp[:tutor])
+
+		if @group.update(gp)
 			flash[:notice] = "Group #" + @group.id.to_s + " has been successfully updated!"
 			redirect_to groups_path
 		else

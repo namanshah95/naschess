@@ -9,9 +9,9 @@ class ApplicationController < ActionController::Base
     when "Admin"
       groups_url
     when "Parent"
-      parent_url(current_user)
+      parent_url(current_parent)
     when "Tutor"
-      groups_url
+      tutor_url(current_tutor)
     else
       root_url
     end if user_signed_in?

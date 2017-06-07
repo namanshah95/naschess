@@ -14,16 +14,16 @@
 	<div class="col-sm-3">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<%= link_to child.name, child_path(child) %>
-				<%= link_to "Edit", edit_child_path(child), class: "btn btn-warning" %>
+				<%= child.name %>
+				<%= link_to "View", child_path(child), class: "btn btn-primary" %>
 			</div>
 			<div class="panel-body">
 				<% if child.group.nil? %>
 					<p>Group Unassigned</p>
 				<% else %>
 					<p>Member of Group #<%= child.group.id %></p>
+					<p>Tutor: <%= link_to child.group.tutor.name, tutor_path(child.group.tutor) %></p>
 					<p>Next Class:</p>
-					<p>Tutor: <%= link_to child.group.tutor, groups_path %></p>
 				<% end %>
 			</div>
 		</div>

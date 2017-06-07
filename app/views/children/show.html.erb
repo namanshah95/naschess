@@ -1,7 +1,7 @@
 <div class="page-header">
 <h2><%= @child.name %>'s Profile</h2>
 <ul class="actions">
-	<li><%= link_to "Back", children_path, class: "btn btn-primary" %></li>
+	<li><%= link_to "Back", parent_path(@child.parent), class: "btn btn-primary" %></li>
 	<li><%= link_to "Edit", edit_child_path(@child), class: "btn btn-warning" %></li>
 </ul>
 </div>
@@ -14,8 +14,12 @@
 <% if @child.group.nil? %>
 	<p>Group Unassigned</p>
 <% else %>
-	<p>Member of Group #<%= @child.group.id %> (Tutor: <%= link_to @child.group.tutor, groups_path %>) <%= link_to "Drop", drop_path, class: "btn btn-danger", method: :patch %></p>
-	<p>Next Class:</p>
+	<div class="well">
+		<p>Member of Group #<%= @child.group.id %> </p>
+		<p>Tutor: <%= link_to @child.group.tutor.name, tutor_path(@child.group.tutor) %></p>
+		<p>Next Class:</p> 
+		<%= link_to "Drop", drop_path, class: "btn btn-danger", method: :patch %></p>
+	</div>
 <% end %>
 
 <h3>Attendence History</h3>
