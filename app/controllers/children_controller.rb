@@ -1,14 +1,17 @@
 class ChildrenController < ApplicationController
 
 	def index
+		require_user!(admin_logged_in?)
 		@children = Child.all
 	end
 
 	def show
 		@child = Child.find(params[:id])
+		require_user!(admin_logged_in? || current_parent == @child.parent)
 	end
 
 	def new
+		require_user!(parent_logged_in?)
 		@child = Child.new
 	end
 
@@ -27,6 +30,7 @@ class ChildrenController < ApplicationController
 
 	def edit
 		@child = Child.find(params[:id])
+		require_user!(admin_logged_in? || current_user == @child.parent)
 	end
 
 	def update
@@ -43,6 +47,7 @@ class ChildrenController < ApplicationController
 
 	def drop
 		@child = Child.find(params[:id])
+		require_user!(admin_logged_in? || current_user == @child.parent)
 
 		if @child.update_attribute(:group_id, nil)
 			flash[:notice] = @child.name + " has successfully dropped his/her group!"

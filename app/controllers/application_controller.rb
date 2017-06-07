@@ -3,26 +3,13 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user!
 
-  before_filter :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  helper_method :current_admin, :current_parent, :current_tutor, :require_admin!, :require_parent!, :require_tutor!
-
-  def account_url
-    return new_user_session_url unless user_signed_in?
-    case current_user.class.name
-    when "Admin"
-      admin_url(current_admin)
-    when "Parent"
-      parent_url(current_parent)
-    when "Tutor"
-      tutor_url(current_tutor)
-    else
-      root_url
-    end if user_signed_in?
-  end
+  helper_method :current_admin, :current_parent, :current_tutor, :require_user!
 
   def after_sign_in_path_for(resource)
-    stored_location_for(resource) || account_url
+    return new_user_session_url unless user_signed_in?
+    user_url
   end
 
   protected
@@ -58,24 +45,22 @@ class ApplicationController < ActionController::Base
       @tutor_logged_in ||= user_signed_in? and current_tutor
     end
 
-    def require_admin
-      require_user_type(:admin)
+    def require_user!(cond)
+      if !cond
+        redirect_to user_url, status: 301, alert: "You are not authorized to view this content!" 
+      end
     end
 
-    def require_parent
-      require_user_type(:parent)
-    end
-
-    def require_tutor
-      require_user_type(:tutor)
-    end
-
-    def require_user_type(user_type)
-      if (user_type == :admin and !admin_logged_in?) or
-        (user_type == :parent and !parent_logged_in?) or
-        (user_type == :tutor and !tutor_logged_in?)
-        redirect_to root_path, status: 301, notice: "You must be logged in as a#{'n' if user_type == :admin} #{user_type} to access this content"
-        return false
+    def user_url
+      case current_user.class.name
+      when "Admin"
+        admin_url(current_admin)
+      when "Parent"
+        parent_url(current_parent)
+      when "Tutor"
+        tutor_url(current_tutor)
+      else
+        root_url
       end
     end
 end

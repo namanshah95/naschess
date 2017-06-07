@@ -4,6 +4,7 @@ class GroupsController < ApplicationController
 	end
 
 	def new
+		require_user!(admin_logged_in?)
 		@group = Group.new
 		@groupless = Child.where(group_id: nil)
 		@tutors = Tutor.all
@@ -29,6 +30,7 @@ class GroupsController < ApplicationController
 	end
 
 	def edit
+		require_user!(admin_logged_in?)
 		@group = Group.find(params[:id])
 		@tutors = Tutor.all
 	end
