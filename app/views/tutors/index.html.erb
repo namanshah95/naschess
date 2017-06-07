@@ -1,0 +1,26 @@
+<div class="page-header">
+<h2>Tutors</h2>
+<ul class="actions">
+</ul>
+</div>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+	<thead>
+		<td>Name</td>
+		<td>Email</td>
+		<td>Phone Number</td>
+		<td>Address</td>
+		<td></td>
+	</thead>
+	<% @tutors.each do |tutor| %>
+		<tr>
+			<td><%= tutor.name %></td>
+			<td><%= tutor.email %></td>
+			<td>Phone Number Coming Soon</td>
+			<td>Address Coming Soon</td>
+			<td><%= link_to "View", tutor_path(tutor), class: "btn btn-primary" %></td>
+		</tr>
+	<% end %>
+</table>
+</div>

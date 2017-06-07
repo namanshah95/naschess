@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_filter :configure_permitted_parameters, if: :devise_controller?
+
   helper_method :current_admin, :current_parent, :current_tutor, :require_admin!, :require_parent!, :require_tutor!
 
   def account_url
@@ -19,6 +21,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     stored_location_for(resource) || account_url
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
   end
 
   private
