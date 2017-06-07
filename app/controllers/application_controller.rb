@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_action :authenticate_user!
+
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
   helper_method :current_admin, :current_parent, :current_tutor, :require_admin!, :require_parent!, :require_tutor!
@@ -9,7 +11,7 @@ class ApplicationController < ActionController::Base
     return new_user_session_url unless user_signed_in?
     case current_user.class.name
     when "Admin"
-      groups_url
+      admin_url(current_admin)
     when "Parent"
       parent_url(current_parent)
     when "Tutor"
