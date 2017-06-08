@@ -12,6 +12,7 @@
 		<td>Email</td>
 		<td>Phone Number</td>
 		<td>Address</td>
+		<td>Transaction History</td>
 		<td></td>
 	</thead>
 	<% @parents.each do |parent| %>
@@ -20,6 +21,7 @@
 			<td><%= parent.email %></td>
 			<td>Phone Number Coming Soon</td>
 			<td>Address Coming Soon</td>
+			<td><%= link_to "Transactions", parent_transactions_path(parent), class: "btn btn-primary" %></td>
 			<td><%= link_to "View", parent_path(parent), class: "btn btn-primary" %></td>
 		</tr>
 	<% end %>

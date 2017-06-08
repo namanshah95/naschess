@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   patch "children/:id/drop" => "children#drop", as: :drop
 
   resources :admins
-  resources :parents
+  resources :parents do
+  	resources :transactions 
+  end
   resources :tutors
 
   root "groups#index"
