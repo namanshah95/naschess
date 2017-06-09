@@ -12,17 +12,19 @@ class GroupsController < ApplicationController
 
 	def create
 		gp = group_params
+
+		gp[:children].delete_if do |c_id|
+			c_id.nil? || c_id.empty?
+		end
 		gp[:tutor] = Tutor.find(gp[:tutor])
 		@group = Group.new(gp)
 
 		succ = true
 		gp[:children].each do |c_id|
-			if !c_id.empty?
-				child = Child.find(c_id)
-				child.group = @group
-				if !child.save
-					succ = false
-				end
+			child = Child.find(c_id)
+			child.group = @group
+			if !child.save
+				succ = false
 			end
 		end
 		

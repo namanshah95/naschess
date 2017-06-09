@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_admin, :current_parent, :current_tutor, :admin_logged_in?, :parent_logged_in?, :tutor_logged_in?, :require_user!
 
+  helper_method :decode_sched
+
   def after_sign_in_path_for(resource)
     return new_user_session_url unless user_signed_in?
     profile
@@ -62,5 +64,9 @@ class ApplicationController < ActionController::Base
       else
         root_url
       end
+    end
+
+    def decode_sched(group)
+      group.schedule.scan(/.{5}/).map { |block| DateTime.strptime(block, "%w%H%M") }
     end
 end

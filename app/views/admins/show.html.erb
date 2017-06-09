@@ -19,10 +19,18 @@
 			<div class="panel-heading">Group #<%= group.id %><%= link_to "Edit", edit_group_path(group), class: "btn btn-warning" %></div>
 			<div class="panel-body">
 				<p>Tutor: <%= link_to group.tutor.name, tutor_path(group.tutor) %></p>
-				<p>Schedule: <%= group.schedule %></p>
+				
+				<p><strong>Schedule:</strong></p>
+				<ul>
+					<% decode_sched(group).each do |block| %>
+						<li><%= block.strftime("%A %l:%M %p") %></li>
+					<% end %>
+				</ul>
+
+				<p><strong>Children:</strong></p>
 				<ul>
 					<% Child.where(group_id: group.id).each do |child| %>
-						<li><%= link_to child.name, child_path(child) %></li>
+						<li>&#09;<%= link_to child.name, child_path(child) %></li>
 					<% end %>
 				</ul>
 			</div>
