@@ -8,10 +8,7 @@
 <%= simple_form_for(@group) do |f| %>
 	<%= f.input :tutor, collection: @tutors %>
 	<%= f.input :schedule %>
-	<%= f.input :child1, collection: @groupless %>
-	<%= f.input :child2, collection: @groupless %>
-	<%= f.input :child3, collection: @groupless %>
-	<%= f.input :child4, collection: @groupless %>
+	<%= f.input :children, collection: @choices, input_html: { multiple: true } %>
 
 	<%= f.button :submit, class: "btn-primary" %>
 <% end %>

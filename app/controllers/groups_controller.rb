@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
 	def new
 		require_user!(admin_logged_in?)
 		@group = Group.new
-		@groupless = Child.where(group_id: nil)
+		@choices = Child.where(group: nil)
 		@tutors = Tutor.all
 	end
 
@@ -15,14 +15,20 @@ class GroupsController < ApplicationController
 		gp[:tutor] = Tutor.find(gp[:tutor])
 		@group = Group.new(gp)
 
-		child1 = gp[:child1] == "" ? nil : Child.find(gp[:child1])
-		child2 = gp[:child2] == "" ? nil : Child.find(gp[:child2])
-		child3 = gp[:child3] == "" ? nil : Child.find(gp[:child3])
-		child4 = gp[:child4] == "" ? nil : Child.find(gp[:child4])
+		succ = true
+		gp[:children].each do |c_id|
+			if !c_id.empty?
+				child = Child.find(c_id)
+				child.group = @group
+				if !child.save
+					succ = false
+				end
+			end
+		end
 		
-		if @group.save and (child1.nil? or child1.update_attribute(:group_id, @group.id)) and (child2.nil? or child2.update_attribute(:group_id, @group.id)) and (child3.nil? or child3.update_attribute(:group_id, @group.id)) and (child4.nil? or child4.update_attribute(:group_id, @group.id))
+		if succ and @group.save
 			flash[:notice] = "New group has been successfully created!"
-			redirect_to groups_path
+			redirect_to admin_path(current_admin)
 		else
 			flash.now[:alert] = "Not able to create group!"
 			render "new"
@@ -32,18 +38,36 @@ class GroupsController < ApplicationController
 	def edit
 		require_user!(admin_logged_in?)
 		@group = Group.find(params[:id])
+		existing = Child.where(group: @group)
+		@existing_id = existing.pluck(:id)
+		unassigned = Child.where(group: nil)
+		@choices = existing + unassigned
 		@tutors = Tutor.all
 	end
 
 	def update
 		@group = Group.find(params[:id])
+		@choices = Child.where(group: [nil, @group])
 
 		gp = group_params
 		gp[:tutor] = Tutor.find(gp[:tutor])
 
-		if @group.update(gp)
+		succ = true
+		@choices.each do |child|
+			if gp[:children].include?(child.id.to_s)
+				child.group = @group
+			else
+				child.group = nil
+			end
+
+			if !child.save
+				succ = false
+			end
+		end
+
+		if succ and @group.update(gp)
 			flash[:notice] = "Group #" + @group.id.to_s + " has been successfully updated!"
-			redirect_to groups_path
+			redirect_to admin_path(current_admin)
 		else
 			flash.now[:alert] = "Not able to update Group #" + @group.id.to_s + "!"
 			render "edit"
@@ -53,6 +77,6 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-		params.require(:group).permit(:tutor, :schedule, :child1, :child2, :child3, :child4)
+		params.require(:group).permit(:tutor, :schedule, :children => [])
 	end
 end
