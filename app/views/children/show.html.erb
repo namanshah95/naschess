@@ -22,7 +22,12 @@
 	<div class="well">
 		<p>Member of Group #<%= @child.group.id %> </p>
 		<p>Tutor: <%= link_to @child.group.tutor.name, tutor_path(@child.group.tutor) %></p>
-		<p>Next Class:</p> 
+		<% datetime_arr = decode_sched(@child.group) %>
+		<% datetime_arr.map! do |datetime| %>
+			<% datetime < DateTime.now ? datetime.next_week : datetime %>
+		<% end %>
+		<% datetime_arr.sort! %>
+		<p>Next Class: <%= datetime_arr.first.strftime("%A, %b %d, %Y %l:%M %p") %></p>
 		<%= link_to "Drop", drop_path, class: "btn btn-danger", method: :patch %></p>
 	</div>
 <% end %>

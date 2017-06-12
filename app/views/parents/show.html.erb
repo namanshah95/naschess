@@ -29,7 +29,19 @@
 				<% else %>
 					<p>Member of Group #<%= child.group.id %></p>
 					<p>Tutor: <%= link_to child.group.tutor.name, tutor_path(child.group.tutor) %></p>
+					<div class="well">
+						<h4>Hosted By</h4>
+						<p><strong>Name:</strong> <%= child.group.host.name %></p>
+						<p><strong>Phone:</strong> <%= child.group.host.phone %></p>
+						<p><strong>Address:</strong> <%= child.group.host.address %></p>
+					</div>
+					<% datetime_arr = decode_sched(child.group) %>
+					<% datetime_arr.map! do |datetime| %>
+						<% datetime < DateTime.now ? datetime.next_week : datetime %>
+					<% end %>
+					<% datetime_arr.sort! %>
 					<p>Next Class:</p>
+					<p><%= datetime_arr.first.strftime("%A, %b %d, %Y %l:%M %p") %></p>
 				<% end %>
 			</div>
 		</div>
