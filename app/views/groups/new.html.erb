@@ -7,7 +7,14 @@
 
 <%= simple_form_for(@group) do |f| %>
 	<%= f.input :tutor, collection: @tutors %>
-	<%= f.input :schedule %>
+
+	<%= f.label "Slot 1" %>
+	<%= f.input :dow, label: "Day of the Week", input_html: { multiple: true } %>
+	<%= f.input :time, input_html: { multiple: true, type: 'time' } %>
+	<%= f.label "Slot 2" %>
+	<%= f.input :dow, label: "Day of the Week", input_html: { multiple: true } %>
+	<%= f.input :time, input_html: { multiple: true, type: 'time' } %>
+	
 	<%= f.input :children, collection: @choices, input_html: { multiple: true } %>
 
 	<%= f.button :submit, class: "btn-primary" %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170608061242) do
+ActiveRecord::Schema.define(version: 20170612155052) do
 
   create_table "children", force: :cascade do |t|
     t.string   "name"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20170608061242) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "tutor_id"
+    t.integer  "host_id"
+    t.index ["host_id"], name: "index_groups_on_host_id"
     t.index ["tutor_id"], name: "index_groups_on_tutor_id"
   end
 
@@ -61,6 +63,8 @@ ActiveRecord::Schema.define(version: 20170608061242) do
     t.float    "balance",                default: 0.0
     t.integer  "C20",                    default: 0
     t.integer  "C15",                    default: 0
+    t.string   "phone"
+    t.string   "address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -19,6 +19,12 @@ class GroupsController < ApplicationController
 		gp[:tutor] = Tutor.find(gp[:tutor])
 		@group = Group.new(gp)
 
+		datetime_arr = (0...gp[:dow].count).map do |i|
+			DateTime.strptime(gp[:dow].at(i) + gp[:time].at(i), "%A%H:%M")
+		end
+
+		@group.schedule = encode_sched(datetime_arr.sort!)
+
 		succ = true
 		gp[:children].each do |c_id|
 			child = Child.find(c_id)
@@ -79,6 +85,6 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-		params.require(:group).permit(:tutor, :schedule, :children => [])
+		params.require(:group).permit(:tutor, :schedule, :children => [], :dow => [], :time => [])
 	end
 end

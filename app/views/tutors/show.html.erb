@@ -6,3 +6,25 @@
 	<% end %>
 </ul>
 </div>
+
+<h3>Weekly Schedule</h3>
+<% @slots.each do |slot| %>
+	<div class="panel panel-primary">
+		<div class="panel-heading"><%= slot[:datetime].strftime("%A %l:%M %p") %></div>
+		<div class="panel-body">
+			<p>Group #<%= slot[:group].id %></p>
+			<ul>
+			<% Child.where(group: slot[:group]).each do |child| %>
+				<li><%= child.name %></li>
+			<% end %>
+			</ul>
+			<br>
+			<div class="well">
+				<h4>Host Parent</h4>
+				<p><strong>Name:</strong> <%= slot[:group].host.name %></p>
+				<p><strong>Phone:</strong> <%= slot[:group].host.phone %></p>
+				<p><strong>Address:</strong> <%= slot[:group].host.address %></p>
+			</div>
+		</div>
+	</div>
+<% end %>

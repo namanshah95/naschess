@@ -18,8 +18,8 @@
 		<tr>
 			<td><%= tutor.name %></td>
 			<td><%= tutor.email %></td>
-			<td>Phone Number Coming Soon</td>
-			<td>Address Coming Soon</td>
+			<td><%= tutor.phone %></td>
+			<td><%= tutor.address %></td>
 			<td><%= link_to "View", tutor_path(tutor), class: "btn btn-primary" %></td>
 		</tr>
 	<% end %>

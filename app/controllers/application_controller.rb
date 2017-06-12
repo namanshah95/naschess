@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_admin, :current_parent, :current_tutor, :admin_logged_in?, :parent_logged_in?, :tutor_logged_in?, :require_user!
 
-  helper_method :decode_sched
+  helper_method :decode_sched, :encode_sched
 
   def after_sign_in_path_for(resource)
     return new_user_session_url unless user_signed_in?
@@ -17,8 +17,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :address, :phone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :address, :phone])
   end
 
   private
@@ -68,5 +68,9 @@ class ApplicationController < ActionController::Base
 
     def decode_sched(group)
       group.schedule.scan(/.{5}/).map { |block| DateTime.strptime(block, "%w%H%M") }
+    end
+
+    def encode_sched(datetime_arr)
+      datetime_arr.map { |datetime| datetime.strftime("%w%H%M") }.join('')
     end
 end

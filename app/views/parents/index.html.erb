@@ -19,8 +19,8 @@
 		<tr>
 			<td><%= parent.name %></td>
 			<td><%= parent.email %></td>
-			<td>Phone Number Coming Soon</td>
-			<td>Address Coming Soon</td>
+			<td><%= parent.phone %></td>
+			<td><%= parent.address %></td>
 			<td><%= link_to "Transactions", parent_transactions_path(parent), class: "btn btn-primary" %></td>
 			<td><%= link_to "View", parent_path(parent), class: "btn btn-primary" %></td>
 		</tr>
