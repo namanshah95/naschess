@@ -1,0 +1,25 @@
+<div class="page-header">
+<h2><%= @tutor.name %>'s Lessons</h2>
+<ul class="actions">
+	<li><%= link_to "Back", tutor_path(@tutor), class: "btn btn-primary" %></li>
+	<% if tutor_logged_in? && current_tutor == @tutor %>
+		<li><%= link_to "New Lesson", new_lesson_path, class: "btn btn-success" %></li>
+	<% end %>
+</ul>
+</div>
+
+<% @lessons.each do |lesson| %>
+<div class="panel panel-primary">
+	<div class="panel-heading">Lesson #<%= lesson.id %></div>
+	<div class="panel-body">
+		<p><%= lesson.datetime.strftime("%A %b %d, %Y %l:%M %p") %></p>
+		<p>Group #<%= lesson.group.id %></p>
+		<ul>
+		<% Child.where(group: lesson.group).each do |child| %>
+			<li><%= child.name %></li>
+		<% end %>
+		</ul>
+		<p><%= lesson.notes %></p>
+	</div>
+</div>
+<% end %>

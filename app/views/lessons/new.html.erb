@@ -1,0 +1,14 @@
+<div class="page-header">
+<h2>New Lesson</h2>
+<ul class="actions">
+	<li><%= link_to "Back", tutor_lessons_path(current_tutor), class: "btn btn-primary" %></li>
+</ul>
+</div>
+
+<%= simple_form_for(@lesson) do |f| %>
+	<%= f.input :group, collection: @groups, label_method: lambda { |g| "Group #" + g.id.to_s } %>
+	<%= f.input :datetime, as: :datetime, label: "Date and Time" %>
+	<%= f.input :notes, as: :text %>
+
+	<%= f.button :submit, class: "btn-primary" %>
+<% end %>

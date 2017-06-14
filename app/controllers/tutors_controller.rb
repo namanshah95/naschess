@@ -18,4 +18,10 @@ class TutorsController < ApplicationController
 			hash[:datetime]
 		end
 	end
+
+	def lessons
+		@tutor = Tutor.find(params[:id])
+		require_user!(admin_logged_in? || current_user == @tutor)
+		@lessons = Lesson.where(group: Group.where(tutor: @tutor)).order(datetime: :desc)
+	end
 end

@@ -8,6 +8,7 @@ class ChildrenController < ApplicationController
 	def show
 		@child = Child.find(params[:id])
 		require_user!(admin_logged_in? || current_parent == @child.parent)
+		@lessons = Lesson.where(group: @child.group).order(datetime: :desc)
 	end
 
 	def new

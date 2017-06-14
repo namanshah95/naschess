@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group: one
+  notes: MyString
+  datetime: 2017-06-13 03:23:38
+  attendance: MyString
+
+two:
+  group: two
+  notes: MyString
+  datetime: 2017-06-13 03:23:38
+  attendance: MyString
