@@ -7,3 +7,45 @@
 	<% end %>
 </ul>
 </div>
+
+<div class="row">
+	<div class="col-sm-4">
+		<div class="well">
+			<h3>Balance: <%= number_to_currency(@balance) %></h3>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="well">
+			<h3>C20: <%= @C20 %></h3>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="well">
+			<h3>C15: <%= @C15 %></h3>
+		</div>
+	</div>
+</div>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+	<thead>
+		<td>ID</td>
+		<td>Date</td>
+		<td>Description</td>
+		<td>Amount</td>
+		<td>Balance</td>
+	</thead>
+
+	<% balance = @balance %>
+	<% @transactions.each do |transaction| %>
+		<tr class=<%= "success" if transaction.balance_delta > 0 %><%= "danger" if transaction.balance_delta < 0 %>>
+			<td><%= transaction.id %></td>
+			<td><%= transaction.created_at.strftime("%m/%d/%Y") %></td>
+			<td><%= transaction.description %></td>
+			<td><%= number_to_currency(transaction.balance_delta) %></td>
+			<td><%= number_to_currency(balance) %></td>
+			<% balance -= transaction.balance_delta %>
+		</tr>
+	<% end %>
+</table>
+</div>

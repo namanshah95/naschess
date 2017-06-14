@@ -8,6 +8,7 @@ class GroupsController < ApplicationController
 		@group = Group.new
 		@choices = Child.where(group: nil)
 		@tutors = Tutor.all
+		@parents = Parent.all
 	end
 
 	def create
@@ -17,7 +18,12 @@ class GroupsController < ApplicationController
 			c_id.nil? || c_id.empty?
 		end
 		gp[:tutor] = Tutor.find(gp[:tutor])
+		gp[:host] = Parent.find(gp[:host])
 		@group = Group.new(gp)
+
+		gp.each do |k,v|
+			puts k.to_s + ":" + v.to_s
+		end
 
 		datetime_arr = (0...gp[:dow].count).map do |i|
 			DateTime.strptime(gp[:dow].at(i) + gp[:time].at(i), "%A%H:%M")
@@ -85,6 +91,6 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-		params.require(:group).permit(:tutor, :schedule, :children => [], :dow => [], :time => [])
+		params.require(:group).permit(:tutor, :schedule, :host, :children => [], :dow => [], :time => [])
 	end
 end

@@ -13,6 +13,7 @@
 		<td>Phone Number</td>
 		<td>Address</td>
 		<td></td>
+		<td></td>
 	</thead>
 	<% @tutors.each do |tutor| %>
 		<tr>
@@ -20,6 +21,7 @@
 			<td><%= tutor.email %></td>
 			<td><%= tutor.phone %></td>
 			<td><%= tutor.address %></td>
+			<td><%= link_to "Lessons", tutor_lessons_path(tutor), class: "btn btn-primary" %></td>
 			<td><%= link_to "View", tutor_path(tutor), class: "btn btn-primary" %></td>
 		</tr>
 	<% end %>

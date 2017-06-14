@@ -14,6 +14,22 @@ class LessonsController < ApplicationController
 		
 		@lesson = Lesson.new(lp)
 
+		children = Child.where(group: @lesson.group)
+		children.each do |child|
+			tp = Hash.new
+			tp[:parent_id] = child.parent.id
+			if children.count == 3
+				tp[:balance_delta] = -20.0
+				tp[:c20_delta] = -1
+			end
+			if children.count == 4
+				tp[:balance_delta] = -15.0
+				tp[:c15_delta] = -1
+			end
+			tp[:description] = child.name + "'s class with Group #" + @lesson.group.id.to_s + " on " + @lesson.datetime.strftime("%m/%d/%Y")
+			Transaction.new(tp).save
+		end
+
 		if @lesson.save
 			flash[:notice] = "New lesson has been added successfully!"
 			redirect_to tutor_lessons_path(@lesson.group.tutor)
