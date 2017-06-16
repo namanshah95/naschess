@@ -40,6 +40,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'devise', '>= 3.4.1'
 
+gem 'stripe'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

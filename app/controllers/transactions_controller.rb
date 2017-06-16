@@ -34,6 +34,20 @@ class TransactionsController < ApplicationController
 
 		@transaction = Transaction.new(tp)
 
+		if @transaction.balance_delta > 0
+			customer = Stripe::Customer.create(
+				email: params[:stripeEmail],
+				source: params[:stripeToken]
+				)
+
+			charge = Stripe::Charge.create(
+				customer: customer.id,
+				amount: (@transaction.balance_delta * 100).to_i,
+				description: "NAS Chess Academy balance refill by " + @parent.name,
+				currency: "usd"
+				)
+		end
+
 		if @transaction.save
 			flash[:notice] = "Payment has been made successfully!"
 			redirect_to parent_transactions_path(@parent)
@@ -41,6 +55,10 @@ class TransactionsController < ApplicationController
 			flash.now[:alert] = "Unable to make payment!"
 			render "new"
 		end
+		
+	rescue Stripe::CardError => e
+		flash[:error] = e.message
+		redirect_to new_parent_transaction_path
 	end
 
 	private
