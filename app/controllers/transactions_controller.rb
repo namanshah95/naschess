@@ -3,10 +3,15 @@ class TransactionsController < ApplicationController
 
 	def index
 		require_user!(admin_logged_in? || current_parent == @parent)
-		@transactions = Transaction.where(parent: @parent).order(created_at: :desc)
-		@balance = @transactions.sum(:balance_delta)
-		@C20 = @transactions.sum(:c20_delta)
-		@C15 = @transactions.sum(:c15_delta)
+		query_res = Transaction.where(parent: @parent).order(created_at: :desc)
+		@balance = query_res.sum(:balance_delta)
+		@C20 = query_res.sum(:c20_delta)
+		@C15 = query_res.sum(:c15_delta)
+
+		@start = params[:search].present? && params[:search][:start_date].present? ? params[:search][:start_date] : query_res.last.created_at
+		@end = params[:search].present? && params[:search][:end_date].present? ? params[:search][:end_date] : query_res.first.created_at
+
+		@transactions = query_res.where(created_at: @start..@end)
 	end
 
 	def new
@@ -55,7 +60,7 @@ class TransactionsController < ApplicationController
 			flash.now[:alert] = "Unable to make payment!"
 			render "new"
 		end
-		
+
 	rescue Stripe::CardError => e
 		flash[:error] = e.message
 		redirect_to new_parent_transaction_path

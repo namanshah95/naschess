@@ -8,6 +8,14 @@
 </ul>
 </div>
 
+<%= form_for :search, method: :get do |f| %>
+  <%= f.date_field :start_date, value: @start %>
+  <%= f.date_field :end_date, value: @end %>
+  <%= f.submit 'Filter', class: "btn btn-primary" %>
+<% end %>
+
+<br>
+
 <% @lessons.each do |lesson| %>
 <div class="panel panel-primary">
 	<div class="panel-heading">Lesson #<%= lesson.id %></div>
