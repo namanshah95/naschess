@@ -16,18 +16,24 @@
 
 <br>
 
-<% @lessons.each do |lesson| %>
-<div class="panel panel-primary">
-	<div class="panel-heading">Lesson #<%= lesson.id %></div>
-	<div class="panel-body">
-		<p><%= lesson.datetime.strftime("%A %b %d, %Y %l:%M %p") %></p>
-		<p>Group #<%= lesson.group.id %></p>
-		<ul>
-		<% Child.where(group: lesson.group).each do |child| %>
-			<li><%= child.name %></li>
-		<% end %>
-		</ul>
-		<p><%= lesson.notes %></p>
-	</div>
+<div class="table-responsive">
+<table class="table table-bordered">
+	<thead>
+		<td>ID</td>
+		<td>Date and Time</td>
+		<td>Group ID</td>
+		<td>Notes</td>
+		<td>Attendance</td>
+	</thead>
+
+	<% @lessons.each do |lesson| %>
+		<tr>
+			<td><%= lesson.id %></td>
+			<td><%= lesson.datetime.strftime("%m/%d/%Y %l:%M %p") %></td>
+			<td><%= lesson.group.id %></td>
+			<td><%= lesson.notes %></td>
+			<td></td>
+		</tr>
+	<% end %>
+</table>
 </div>
-<% end %>

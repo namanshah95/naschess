@@ -39,13 +39,6 @@ class LessonsController < ApplicationController
 		end
 	end
 
-	def update_attendance
-		@children = Child.where(group_id: params[:group_id])
-		respond_to do |format|
-			format.js
-		end
-	end
-
 	private
 
 	def lesson_params
