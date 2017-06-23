@@ -4,7 +4,7 @@ class CreateTransactions < ActiveRecord::Migration[5.0]
       t.float :balance_delta
       t.integer :c20_delta
       t.integer :c15_delta
-      t.references :parent, foreign_key: true
+      t.integer :parent_id, foreign_key: true
 
       t.timestamps
     end

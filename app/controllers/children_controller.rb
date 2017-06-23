@@ -48,7 +48,7 @@ class ChildrenController < ApplicationController
 
 	def drop
 		@child = Child.find(params[:id])
-		require_user!(admin_logged_in? || current_user == @child.parent)
+		require_user!(admin_logged_in? || current_parent == @child.parent)
 
 		if @child.update_attribute(:group_id, nil)
 			flash[:notice] = @child.name + " has successfully dropped his/her group!"

@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20170614103514) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "children", force: :cascade do |t|
     t.string   "name"
     t.integer  "age"
@@ -21,8 +24,7 @@ ActiveRecord::Schema.define(version: 20170614103514) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "parent_id"
-    t.index ["group_id"], name: "index_children_on_group_id"
-    t.index ["parent_id"], name: "index_children_on_parent_id"
+    t.index ["group_id"], name: "index_children_on_group_id", using: :btree
   end
 
   create_table "groups", force: :cascade do |t|
@@ -31,8 +33,7 @@ ActiveRecord::Schema.define(version: 20170614103514) do
     t.datetime "updated_at", null: false
     t.integer  "tutor_id"
     t.integer  "host_id"
-    t.index ["host_id"], name: "index_groups_on_host_id"
-    t.index ["tutor_id"], name: "index_groups_on_tutor_id"
+    t.index ["host_id"], name: "index_groups_on_host_id", using: :btree
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -42,7 +43,7 @@ ActiveRecord::Schema.define(version: 20170614103514) do
     t.string   "attendance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_lessons_on_group_id"
+    t.index ["group_id"], name: "index_lessons_on_group_id", using: :btree
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -53,7 +54,6 @@ ActiveRecord::Schema.define(version: 20170614103514) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.string   "description"
-    t.index ["parent_id"], name: "index_transactions_on_parent_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,8 +76,11 @@ ActiveRecord::Schema.define(version: 20170614103514) do
     t.integer  "C15",                    default: 0
     t.string   "phone"
     t.string   "address"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "children", "groups"
+  add_foreign_key "groups", "users", column: "host_id"
+  add_foreign_key "lessons", "groups"
 end
