@@ -11,7 +11,7 @@ class TutorsController < ApplicationController
 		@slots = Array.new
 		Group.where(tutor: @tutor).each do |group|
 			decode_sched(group).each do |datetime|
-				@slots.push{datetime: datetime, group: group}
+				@slots.push({datetime: datetime, group: group})
 			end
 		end
 		@slots.sort_by! do |hash|
