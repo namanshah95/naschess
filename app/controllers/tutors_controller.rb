@@ -25,8 +25,10 @@ class TutorsController < ApplicationController
 
 		query_res = Lesson.where(group: Group.where(tutor: @tutor)).order(datetime: :desc)
 		
-		@start = params[:search].present? && params[:search][:start_date].present? ? params[:search][:start_date] : query_res.last.datetime
-		@end = params[:search].present? && params[:search][:end_date].present? ? params[:search][:end_date] : query_res.first.datetime
+		if query_res.count > 0
+			@start = params[:search].present? && params[:search][:start_date].present? ? params[:search][:start_date] : query_res.last.datetime
+			@end = params[:search].present? && params[:search][:end_date].present? ? params[:search][:end_date] : query_res.first.datetime
+		end
 
 		@lessons = query_res.where(datetime: @start..@end)
 	end

@@ -8,8 +8,10 @@ class TransactionsController < ApplicationController
 		@C20 = query_res.sum(:c20_delta)
 		@C15 = query_res.sum(:c15_delta)
 
-		@start = params[:search].present? && params[:search][:start_date].present? ? params[:search][:start_date] : query_res.last.created_at
-		@end = params[:search].present? && params[:search][:end_date].present? ? params[:search][:end_date] : query_res.first.created_at
+		if query_res.count > 0
+			@start = params[:search].present? && params[:search][:start_date].present? ? params[:search][:start_date] : query_res.last.created_at
+			@end = params[:search].present? && params[:search][:end_date].present? ? params[:search][:end_date] : query_res.first.created_at
+		end
 
 		@transactions = query_res.where(created_at: @start..@end)
 	end
