@@ -9,23 +9,40 @@
 </div>
 
 <h3>Weekly Schedule</h3>
-<% @slots.each do |slot| %>
-	<div class="panel panel-primary">
-		<div class="panel-heading"><%= slot[:datetime].strftime("%A %l:%M %p") %></div>
-		<div class="panel-body">
-			<p>Group #<%= slot[:group].id %></p>
-			<ul>
-			<% Child.where(group: slot[:group]).each do |child| %>
-				<li><%= child.name %></li>
+<div class="table-responsive">
+	<table class="table">
+		<thead>
+		<% Date::DAYNAMES.each do |day| %>
+			<td><%= day %></td>
+		<% end %>
+		</thead>
+
+		<% while @dow_slots.any? { |k, v| !v.empty? } do %>
+		<tr>
+			<% Date::DAYNAMES.each do |day| %>
+				<% if @dow_slots[day].empty? %>
+					<td></td>
+				<% else %>
+					<% slot = @dow_slots[day].slice!(0) %>
+					<td>
+						<div class="panel panel-primary slot">
+							<div class="panel-heading">
+								<%= slot[:datetime].strftime("%l:%M %p") %>
+							</div>
+							<div class="panel-body">
+								<p>Group #<%= slot[:group].id %></p>
+								<p><strong>Host Name:</strong><br>
+								<%= slot[:group].host.name %></p>
+								<p><strong>Phone:</strong><br>
+								<%= slot[:group].host.phone %></p>
+								<p><strong>Address:</strong><br>
+								<%= slot[:group].host.address %></p>
+							</div>
+						</div>
+					</td>
+				<% end %>
 			<% end %>
-			</ul>
-			<br>
-			<div class="well">
-				<h4>Hosted By</h4>
-				<p><strong>Name:</strong> <%= slot[:group].host.name %></p>
-				<p><strong>Phone:</strong> <%= slot[:group].host.phone %></p>
-				<p><strong>Address:</strong> <%= slot[:group].host.address %></p>
-			</div>
-		</div>
-	</div>
-<% end %>
+		</tr>
+		<% end %>
+	</table>
+</div>
