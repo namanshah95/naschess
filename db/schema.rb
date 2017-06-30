@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614103514) do
+ActiveRecord::Schema.define(version: 20170629010327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.integer  "child_id"
+    t.boolean  "present"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["child_id"], name: "index_attendances_on_child_id", using: :btree
+    t.index ["lesson_id"], name: "index_attendances_on_lesson_id", using: :btree
+  end
 
   create_table "children", force: :cascade do |t|
     t.string   "name"
@@ -40,7 +50,6 @@ ActiveRecord::Schema.define(version: 20170614103514) do
     t.integer  "group_id"
     t.string   "notes"
     t.datetime "datetime"
-    t.string   "attendance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["group_id"], name: "index_lessons_on_group_id", using: :btree
@@ -80,6 +89,8 @@ ActiveRecord::Schema.define(version: 20170614103514) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "attendances", "children"
+  add_foreign_key "attendances", "lessons"
   add_foreign_key "children", "groups"
   add_foreign_key "groups", "users", column: "host_id"
   add_foreign_key "lessons", "groups"

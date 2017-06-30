@@ -32,7 +32,12 @@
 			<td><%= lesson.datetime.strftime("%m/%d/%Y %l:%M %p") %></td>
 			<td><%= lesson.group.id %></td>
 			<td><%= lesson.notes %></td>
-			<td></td>
+			<% attendance = Array.new %>
+			<% Attendance.where(lesson: lesson).each do |a| %>
+				<% child = "<span" + (a.present ? "" : " style='color: red;'") + ">" + a.child.name + "</span>" %>
+				<% attendance.push(child) %>
+			<% end %>
+			<td><%= attendance.join(", ").html_safe %></td>
 		</tr>
 	<% end %>
 </table>

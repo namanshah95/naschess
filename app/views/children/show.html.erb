@@ -33,18 +33,13 @@
 <% end %>
 
 <h3>Attendence History</h3>
-<% @lessons.each do |lesson| %>
-<div class="panel panel-primary">
-	<div class="panel-heading">Lesson #<%= lesson.id %></div>
+<% @attendance.each do |a| %>
+<div class="panel panel-<%= a.present ? 'success' : 'danger' %>">
+	<div class="panel-heading">Lesson #<%= a.lesson.id %></div>
 	<div class="panel-body">
-		<p><%= lesson.datetime.strftime("%A %b %d, %Y %l:%M %p") %></p>
-		<p>Group #<%= lesson.group.id %></p>
-		<ul>
-		<% Child.where(group: lesson.group).each do |child| %>
-			<li><%= child.name %></li>
-		<% end %>
-		</ul>
-		<p><%= lesson.notes %></p>
+		<p><%= a.lesson.datetime.strftime("%A %b %d, %Y %l:%M %p") %></p>
+		<p>Group #<%= a.lesson.group.id %></p>
+		<p><%= a.lesson.notes %></p>
 	</div>
 </div>
 <% end %>

@@ -19,6 +19,7 @@ class GroupsController < ApplicationController
 		end
 		gp[:tutor] = Tutor.find(gp[:tutor])
 		gp[:host] = Parent.find(gp[:host])
+		
 		@group = Group.new(gp)
 
 		datetime_arr = (0...gp[:dow].count).map do |i|
