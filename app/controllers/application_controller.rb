@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :decode_sched, :encode_sched
 
+  helper_method :address
+
+  helper_method :state_array
+
   def after_sign_in_path_for(resource)
     return new_user_session_url unless user_signed_in?
     profile
@@ -17,8 +21,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :address, :phone])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :address, :phone])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :street_address, :city, :state, :zip, :phone])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :street_address, :city, :state, :zip, :phone])
   end
 
   private
@@ -72,5 +76,13 @@ class ApplicationController < ActionController::Base
 
     def encode_sched(datetime_arr)
       datetime_arr.map { |datetime| datetime.strftime("%w%H%M") }.join('')
+    end
+
+    def address(user)
+      user.street_address + "\n" + user.city + ", " + user.state + " " + user.zip
+    end
+
+    def state_array
+      %w(AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY)
     end
 end

@@ -5,7 +5,10 @@
 
   <%= f.input :name, required: true, autofocus: true %>
   <%= f.input :phone, required: true %>
-  <%= f.input :address, required: true, hint: "Address, City, State, Zip" %>
+  <%= f.input :street_address, required: true %>
+  <%= f.input :city, required: true %>
+  <%= f.input :state, collection: state_array, required: true %>
+  <%= f.input :zip, required: true %>
   <%= f.input :email, required: true%>
   <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
   <%= f.input :password_confirmation, required: true %>

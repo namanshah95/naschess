@@ -8,6 +8,13 @@
 </ul>
 </div>
 
+<br>
+
+<p><strong>Phone:</strong> <%= @tutor.phone %></p>
+<p><strong>Address:</strong> <%= address(@tutor) %></p>
+
+<br>
+
 <h3>Weekly Schedule</h3>
 <div class="table-responsive">
 	<table class="table">
@@ -36,7 +43,7 @@
 								<p><strong>Phone:</strong><br>
 								<%= slot[:group].host.phone %></p>
 								<p><strong>Address:</strong><br>
-								<%= slot[:group].host.address %></p>
+								<%= address(slot[:group].host) %></p>
 							</div>
 						</div>
 					</td>

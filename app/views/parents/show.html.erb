@@ -11,6 +11,14 @@
 </ul>
 </div>
 
+<br>
+
+<p><strong>Phone:</strong> <%= @parent.phone %></p>
+<p><strong>Address:</strong> <%= address(@parent) %></p>
+
+<br>
+
+<h3>Children</h3>
 <% child_count = @children.count %>
 <% ind = 0 %>
 <% @children.each do |child| %>
@@ -33,7 +41,7 @@
 						<h4>Hosted By</h4>
 						<p><strong>Name:</strong> <%= child.group.host.name %></p>
 						<p><strong>Phone:</strong> <%= child.group.host.phone %></p>
-						<p><strong>Address:</strong> <%= child.group.host.address %></p>
+						<p><strong>Address:</strong> <%= address(child.group.host) %></p>
 					</div>
 					<% datetime_arr = decode_sched(child.group) %>
 					<% datetime_arr.map! do |datetime| %>
