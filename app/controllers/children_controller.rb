@@ -8,8 +8,8 @@ class ChildrenController < ApplicationController
 	def show
 		@child = Child.find(params[:id])
 		require_user!(admin_logged_in? || current_parent == @child.parent)
-		@attendance = Attendance.where(child: @child).sort_by do |a|
-			a.lesson.datetime
+		@attendance = Attendance.where(child: @child).sort do |a, b|
+			b.lesson.datetime <=> a.lesson.datetime
 		end
 	end
 

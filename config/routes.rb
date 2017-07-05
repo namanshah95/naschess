@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   resources :tutors
   get "tutors/:id/lessons" => "tutors#lessons", as: :tutor_lessons
 
-  resources :lessons
   get "lessons/update_attendance", as: "update_attendance"
+  resources :lessons
 
   root "groups#index"
 end
