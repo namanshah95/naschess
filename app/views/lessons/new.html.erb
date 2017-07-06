@@ -8,7 +8,7 @@
 <%= simple_form_for(@lesson) do |f| %>
 	<%= f.input :group, collection: @groups, label_method: lambda { |g| "Group #" + g.id.to_s } %>
 	<%= f.input :datetime, as: :datetime, label: "Date and Time" %>
-	<%= f.input :attendance, collection: @children, input_html: { multiple: true, id: "attendance-select" } %>
+	<%= f.input :attendance, collection: @children, input_html: { multiple: true } %>
 	<%= f.input :notes, as: :text %>
 
 	<%= f.button :submit, class: "btn-primary" %>

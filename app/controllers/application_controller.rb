@@ -18,6 +18,11 @@ class ApplicationController < ActionController::Base
     profile
   end
 
+  def after_sign_out_path_for(resource)
+    return profile if user_signed_in?
+    new_user_session_url
+  end
+
   protected
 
   def configure_permitted_parameters

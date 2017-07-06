@@ -4,8 +4,13 @@ Rails.application.routes.draw do
   devise_for :parents, skip: :sessions
   devise_for :tutors, skip: :sessions
 
+  devise_scope :user do
+    root :to => 'devise/sessions#new'
+  end
+
   get "groups/add_slot", as: "add_slot"
   get "groups/remove_slot", as: "remove_slot"
+  get "groups/update_host", as: "update_host"
   resources :groups
   resources :children
   patch "children/:id/drop" => "children#drop", as: :drop
@@ -20,5 +25,4 @@ Rails.application.routes.draw do
   get "lessons/update_attendance", as: "update_attendance"
   resources :lessons
 
-  root "groups#index"
 end

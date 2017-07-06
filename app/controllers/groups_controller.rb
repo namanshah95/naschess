@@ -1,15 +1,12 @@
 class GroupsController < ApplicationController
 
-	def index
-	end
-
 	def new
 		require_user!(admin_logged_in?)
 		@group = Group.new
 		@tutors = Tutor.all
 		@slot = 1
 		@choices = Child.where(group: nil)
-		@parents = Parent.all
+		@hosts = Array.new
 	end
 
 	def create
@@ -100,6 +97,18 @@ class GroupsController < ApplicationController
 
 	def remove_slot
 		@slot = params[:slot]
+		respond_to do |format|
+			format.js
+		end
+	end
+
+	def update_host
+		@hosts = Set.new
+		if !params[:children].nil? && !params[:children].empty?
+			params[:children].each do |c_id|
+				@hosts.add(Child.find(c_id).parent)
+			end
+		end
 		respond_to do |format|
 			format.js
 		end

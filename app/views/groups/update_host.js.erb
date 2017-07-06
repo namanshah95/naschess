@@ -1,0 +1,4 @@
+$("#group_host").empty();
+<% @hosts.each do |host| %>
+	$("#group_host").append("<option value='<%= host.id %>'><%= host.name %></option>");
+<% end %>

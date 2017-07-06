@@ -18,7 +18,7 @@
 	
 	<%= f.input :children, collection: @choices, input_html: { multiple: true } %>
 
-	<%= f.input :host, collection: @parents %>
+	<%= f.input :host, collection: @hosts %>
 
 	<%= f.button :submit, class: "btn-primary" %>
 <% end %>

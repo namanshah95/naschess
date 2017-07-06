@@ -1,4 +1,4 @@
-$("#attendance-select").empty();
+$("#lesson_attendance").empty();
 <% @children.each do |child| %>
-	$("#attendance-select").append("<option value='<%= child.id %>'><%= child.name %></option>");
+	$("#lesson_attendance").append("<option value='<%= child.id %>'><%= child.name %></option>");
 <% end %>
