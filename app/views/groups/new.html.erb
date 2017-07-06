@@ -8,12 +8,13 @@
 <%= simple_form_for(@group) do |f| %>
 	<%= f.input :tutor, collection: @tutors %>
 
-	<%= f.label "Slot 1" %>
+	<div class="slot-container" id="slot-container-1" value="1">
+	<%= f.label "Slot" %>&nbsp;<%= link_to "-", remove_slot_path(slot: 1), class: "btn btn-danger disabled", remote: true %>
 	<%= f.input :dow, label: "Day of the Week", input_html: { multiple: true } %>
 	<%= f.input :time, input_html: { multiple: true, type: 'time' } %>
-	<%= f.label "Slot 2" %>
-	<%= f.input :dow, label: "Day of the Week", input_html: { multiple: true } %>
-	<%= f.input :time, input_html: { multiple: true, type: 'time' } %>
+	</div>
+
+	<%= link_to "Add Slot", add_slot_path, class: "btn btn-success", id: "add-slot-btn", remote: true %>
 	
 	<%= f.input :children, collection: @choices, input_html: { multiple: true } %>
 

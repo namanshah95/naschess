@@ -1,0 +1,4 @@
+$("#slot-container-<%= @slot %>").remove();
+if ($(".slot-container").length == 1) {
+	$(".slot-container:first a").addClass("disabled");
+}

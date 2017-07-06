@@ -6,8 +6,9 @@ class GroupsController < ApplicationController
 	def new
 		require_user!(admin_logged_in?)
 		@group = Group.new
-		@choices = Child.where(group: nil)
 		@tutors = Tutor.all
+		@slot = 1
+		@choices = Child.where(group: nil)
 		@parents = Parent.all
 	end
 
@@ -19,6 +20,12 @@ class GroupsController < ApplicationController
 		end
 		gp[:tutor] = Tutor.find(gp[:tutor])
 		gp[:host] = Parent.find(gp[:host])
+		gp[:dow].delete_if do |d|
+			d.nil? || d.empty?
+		end
+		gp[:time].delete_if do |t|
+			t.nil? || t.empty?
+		end
 		
 		@group = Group.new(gp)
 
@@ -82,6 +89,19 @@ class GroupsController < ApplicationController
 		else
 			flash.now[:alert] = "Not able to update Group #" + @group.id.to_s + "!"
 			render "edit"
+		end
+	end
+
+	def add_slot
+		respond_to do |format|
+			format.js
+		end
+	end
+
+	def remove_slot
+		@slot = params[:slot]
+		respond_to do |format|
+			format.js
 		end
 	end
 

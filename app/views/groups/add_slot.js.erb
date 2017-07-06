@@ -1,0 +1,12 @@
+var slot = 1 + +$(".slot-container:last").attr("value");
+var container = document.createElement("div");
+$(container).addClass("slot-container");
+$(container).attr("id", "slot-container-" + slot);
+$(container).attr("value", slot);
+$(container).append('<label class="string optional" for="group_Slot">Slot</label>&nbsp;<a class="btn btn-danger" data-remote="true" href="/groups/remove_slot?slot=' + slot + '">-</a>',
+	'<div class="form-group string optional group_dow"><label class="control-label string optional" for="group_dow">Day of the Week</label><input class="form-control string optional" multiple="multiple" type="text" name="group[dow][]" id="group_dow" /></div>',
+	'<div class="form-group string optional group_time"><label class="control-label string optional" for="group_time">Time</label><input class="form-control string optional" multiple="multiple" type="time" name="group[time][]" id="group_time" /></div>');
+$("#add-slot-btn").before(container);
+if ($(".slot-container").length > 1) {
+	$(".slot-container a").removeClass("disabled");
+}

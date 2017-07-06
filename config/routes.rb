@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   devise_for :parents, skip: :sessions
   devise_for :tutors, skip: :sessions
 
+  get "groups/add_slot", as: "add_slot"
+  get "groups/remove_slot", as: "remove_slot"
   resources :groups
   resources :children
   patch "children/:id/drop" => "children#drop", as: :drop
