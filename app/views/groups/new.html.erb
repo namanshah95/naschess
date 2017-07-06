@@ -16,7 +16,7 @@
 
 	<%= link_to "Add Slot", add_slot_path, class: "btn btn-success", id: "add-slot-btn", remote: true %>
 	
-	<%= f.input :children, collection: @choices, input_html: { multiple: true } %>
+	<%= f.input :children, collection: @choices, label_method: lambda { |c| c.parent.city + ", " + c.parent.state + " - " + c.name + " (" + c.parent.name + ")" }, input_html: { multiple: true } %>
 
 	<%= f.input :host, collection: @hosts %>
 

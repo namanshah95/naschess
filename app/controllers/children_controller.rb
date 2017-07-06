@@ -2,7 +2,7 @@ class ChildrenController < ApplicationController
 
 	def index
 		require_user!(admin_logged_in?)
-		@children = Child.all
+		@children = Child.all.order(:parent_id, :name)
 	end
 
 	def show

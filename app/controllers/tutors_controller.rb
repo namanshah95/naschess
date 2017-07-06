@@ -35,13 +35,16 @@ class TutorsController < ApplicationController
 		@tutor = Tutor.find(params[:id])
 		require_user!(admin_logged_in? || current_user == @tutor)
 
-		query_res = Lesson.where(group: Group.where(tutor: @tutor)).order(datetime: :desc)
+		@groups = Group.where(tutor: @tutor)
+
+		query_res = Lesson.where(group: @groups).order(datetime: :desc)
 		
 		if query_res.count > 0
 			@start = params[:search].present? && params[:search][:start_date].present? ? params[:search][:start_date] : query_res.last.datetime
 			@end = params[:search].present? && params[:search][:end_date].present? ? params[:search][:end_date] : query_res.first.datetime
+			@group = params[:search].present? && params[:search][:group].present? ? params[:search][:group] : @groups
 		end
 
-		@lessons = query_res.where(datetime: @start..@end)
+		@lessons = query_res.where(datetime: @start..@end).where(group: @group)
 	end
 end

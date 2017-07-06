@@ -13,7 +13,7 @@ class LessonsController < ApplicationController
 		dt = lp["datetime(1i)"] + lp["datetime(2i)"].rjust(2, "0") + lp["datetime(3i)"].rjust(2, "0") + lp["datetime(4i)"] + lp["datetime(5i)"]
 		lp[:datetime] = DateTime.strptime(dt, "%Y%m%d%H%M")
 		lp[:attendance].delete_if do |c_id|
-			c_id.nil? || c_id.empty?
+			c_id.blank?
 		end
 		
 		@lesson = Lesson.new(lp)
@@ -53,7 +53,7 @@ class LessonsController < ApplicationController
 
 	def update_attendance
 		@children = Array.new
-		if !params[:group].nil? && !params[:group].empty?
+		if params[:group].present?
 			@children = Child.where(group: params[:group])
 		end
 		respond_to do |format|

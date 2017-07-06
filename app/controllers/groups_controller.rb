@@ -5,7 +5,9 @@ class GroupsController < ApplicationController
 		@group = Group.new
 		@tutors = Tutor.all
 		@slot = 1
-		@choices = Child.where(group: nil)
+		@choices = Child.where(group: nil).sort_by do |c|
+			c.parent
+		end
 		@hosts = Array.new
 	end
 
@@ -13,15 +15,15 @@ class GroupsController < ApplicationController
 		gp = group_params
 
 		gp[:children].delete_if do |c_id|
-			c_id.nil? || c_id.empty?
+			c_id.blank?
 		end
 		gp[:tutor] = Tutor.find(gp[:tutor])
 		gp[:host] = Parent.find(gp[:host])
 		gp[:dow].delete_if do |d|
-			d.nil? || d.empty?
+			d.blank?
 		end
 		gp[:time].delete_if do |t|
-			t.nil? || t.empty?
+			t.blank?
 		end
 		
 		@group = Group.new(gp)
@@ -104,7 +106,7 @@ class GroupsController < ApplicationController
 
 	def update_host
 		@hosts = Set.new
-		if !params[:children].nil? && !params[:children].empty?
+		if params[:children].present?
 			params[:children].each do |c_id|
 				@hosts.add(Child.find(c_id).parent)
 			end
