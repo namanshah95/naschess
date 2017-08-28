@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630204142) do
+ActiveRecord::Schema.define(version: 20170828060057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,10 +39,11 @@ ActiveRecord::Schema.define(version: 20170630204142) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "schedule"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "tutor_id"
     t.integer  "host_id"
+    t.float    "price",      default: 0.0
     t.index ["host_id"], name: "index_groups_on_host_id", using: :btree
   end
 
@@ -55,34 +56,21 @@ ActiveRecord::Schema.define(version: 20170630204142) do
     t.index ["group_id"], name: "index_lessons_on_group_id", using: :btree
   end
 
-  create_table "transactions", force: :cascade do |t|
-    t.float    "balance_delta"
-    t.integer  "c20_delta"
-    t.integer  "c15_delta"
-    t.integer  "parent_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.string   "description"
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",  null: false
-    t.string   "encrypted_password",     default: "",  null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,   null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "name"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "type"
-    t.float    "balance",                default: 0.0
-    t.integer  "C20",                    default: 0
-    t.integer  "C15",                    default: 0
     t.string   "phone"
     t.string   "street_address"
     t.string   "city"

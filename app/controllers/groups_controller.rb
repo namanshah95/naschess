@@ -119,6 +119,6 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-		params.require(:group).permit(:tutor, :schedule, :host, :children => [], :dow => [], :time => [])
+		params.require(:group).permit(:price, :tutor, :schedule, :host, :children => [], :dow => [], :time => [])
 	end
 end

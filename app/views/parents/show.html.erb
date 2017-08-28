@@ -36,6 +36,7 @@
 					<p>Group Unassigned</p>
 				<% else %>
 					<p>Member of Group #<%= child.group.id %></p>
+					<p>Price: <%= number_to_currency(child.group.price) %></p>
 					<p>Tutor: <%= link_to child.group.tutor.name, tutor_path(child.group.tutor) %></p>
 					<div class="well">
 						<h4>Hosted By</h4>
