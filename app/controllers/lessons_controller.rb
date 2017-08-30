@@ -27,20 +27,6 @@ class LessonsController < ApplicationController
 				ap[:child_id] = child.id
 				ap[:present] = lp[:attendance].include?(child.id.to_s)
 				Attendance.create!(ap)
-
-				# Create transaction record for each child
-				tp = Hash.new
-				tp[:parent_id] = child.parent.id
-				if children.count == 3
-					tp[:balance_delta] = -20.0
-					tp[:c20_delta] = -1
-				end
-				if children.count == 4
-					tp[:balance_delta] = -15.0
-					tp[:c15_delta] = -1
-				end
-				tp[:description] = child.name + "'s class with Group #" + @lesson.group.id.to_s + " on " + @lesson.datetime.strftime("%m/%d/%Y")
-				Transaction.create!(tp)
 			end
 
 			flash[:notice] = "New lesson has been added successfully!"

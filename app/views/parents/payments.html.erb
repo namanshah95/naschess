@@ -1,0 +1,36 @@
+<div class="page-header">
+<h2><%= @parent.name %>'s Payments</h2>
+<ul class="actions">
+	<li><%= link_to "Back", parent_path(@parent), class: "btn btn-primary" %></li>
+</ul>
+</div>
+
+<%= form_for :search, method: :get do |f| %>
+  <%= f.date_field :start_date, value: @start %>
+  <%= f.date_field :end_date, value: @end %>
+  <%= f.submit 'Filter', class: "btn btn-primary" %>
+<% end %>
+
+<br>
+
+<div class="table-responsive">
+<table class="table table-bordered">
+	<thead>
+		<td>ID</td>
+		<td>Date and Time</td>
+		<td>Group ID</td>
+		<td>Child</td>
+		<td>Payment Amount</td>
+	</thead>
+
+	<% @attendances.each do |attendance| %>
+		<tr>
+			<td><%= attendance.id %></td>
+			<td><%= attendance.lesson.datetime.strftime("%m/%d/%Y %l:%M %p") %></td>
+			<td><%= attendance.lesson.group.id %></td>
+			<td><%= attendance.child.name %></td>
+			<td><%= number_to_currency(attendance.lesson.group.price) %></td>
+		</tr>
+	<% end %>
+</table>
+</div>

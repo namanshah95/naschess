@@ -16,13 +16,11 @@ Rails.application.routes.draw do
   patch "children/:id/drop" => "children#drop", as: :drop
 
   resources :admins
-  resources :parents do
-  	resources :transactions 
-  end
+  resources :parents
+  get "parents/:id/payments" => "parents#payments", as: :parent_payments
   resources :tutors
   get "tutors/:id/lessons" => "tutors#lessons", as: :tutor_lessons
 
   get "lessons/update_attendance", as: "update_attendance"
   resources :lessons
-
 end
