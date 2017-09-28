@@ -31,4 +31,22 @@ class ParentsController < ApplicationController
 			attendance.lesson.datetime >= @start && attendance.lesson.datetime <= @end
 		end
 	end
+
+	def store_card
+		@parent = Parent.find(params[:id])
+		require_user!(admin_logged_in? || current_user == @parent)
+
+		customer = Stripe::Customer.create(
+			email: @parent.email,
+			source: params[:stripeSource]
+		)
+
+		if @parent.update_attribute(:customer_id, customer.id)
+			flash[:notice] = "Card successfully added!"
+			redirect_to parent_path(@parent)
+		else
+			flash.now[:alert] = "Unable to add card!"
+			render "show"
+		end
+	end
 end

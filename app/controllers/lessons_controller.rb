@@ -27,6 +27,15 @@ class LessonsController < ApplicationController
 				ap[:child_id] = child.id
 				ap[:present] = lp[:attendance].include?(child.id.to_s)
 				Attendance.create!(ap)
+				# Create Stripe charge for parent of child
+				if not child.parent.customer_id.nil?
+					Stripe::Charge.create(
+						amount: (@lesson.group.price * 100).to_i,
+						currency: "usd",
+						customer: child.parent.customer_id,
+						description: child.name + "'s class on " + @lesson.datetime.to_s
+					)
+				end
 			end
 
 			flash[:notice] = "New lesson has been added successfully!"
