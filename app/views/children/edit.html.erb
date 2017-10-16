@@ -1,7 +1,12 @@
 <div class="page-header">
 <h2>Edit <%= @child.name %>'s Profile</h2>
 <ul class="actions">
-	<li><%= link_to "Back", child_path(@child), class: "btn btn-primary" %></li>
+	<% if admin_logged_in? %>
+		<li><%= link_to "Back", child_path(@child), class: "btn btn-primary" %></li>
+	<% end %>
+	<% if parent_logged_in? %>
+		<li><%= link_to "Back", child_path(@child), class: "btn btn-primary" %></li>
+	<% end %>
 </ul>
 </div>
 

@@ -14,7 +14,7 @@ class ParentsController < ApplicationController
 
 	def payments
 		@parent = Parent.find(params[:id])
-		require_user!(admin_logged_in? || current_user == @parent)
+		require_user!(admin_logged_in? || (current_user == @parent && !@parent.customer_id.nil?))
 
 		@children = Child.where(parent: @parent)
 
@@ -30,6 +30,11 @@ class ParentsController < ApplicationController
 		@attendances = query_res.keep_if do |attendance|
 			attendance.lesson.datetime >= @start && attendance.lesson.datetime <= @end
 		end
+	end
+
+	def add_payment_info
+		@parent = Parent.find(params[:id])
+		require_user!(admin_logged_in? || current_user == @parent)
 	end
 
 	def store_card

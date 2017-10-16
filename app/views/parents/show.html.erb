@@ -1,151 +1,69 @@
 <div class="page-header">
 <h2><%= @parent.name %>'s Profile</h2>
-<% if @parent.customer_id.nil? %>
-	<%= form_tag parent_store_card_path(@parent), method: :post, authenticity_token: :true, id: "payment-form" do %>
-	  <div class="form-row">
-	    <label for="card-element">
-	      Credit or debit card
-	    </label>
-	    <div id="card-element">
-	      <!-- a Stripe Element will be inserted here. -->
-	    </div>
-
-	    <!-- Used to display Element errors -->
-	    <div id="card-errors" role="alert"></div>
-	  </div>
-
-	  <button>Submit Payment</button>
-	<% end %>
-
-	<script type="text/javascript">
-	// Create a Stripe client
-	var stripe = Stripe('<%= Rails.configuration.stripe[:publishable_key] %>');
-
-	// Create an instance of Elements
-	var elements = stripe.elements();
-
-	// Custom styling can be passed to options when creating an Element.
-	// (Note that this demo uses a wider set of styles than the guide below.)
-	var style = {
-	  base: {
-	    color: '#32325d',
-	    lineHeight: '24px',
-	    fontFamily: 'Helvetica Neue',
-	    fontSmoothing: 'antialiased',
-	    fontSize: '16px',
-	    '::placeholder': {
-	      color: '#aab7c4'
-	    }
-	  },
-	  invalid: {
-	    color: '#fa755a',
-	    iconColor: '#fa755a'
-	  }
-	};
-
-	// Create an instance of the card Element
-	var card = elements.create('card', {style: style});
-
-	// Add an instance of the card Element into the `card-element` <div>
-	card.mount('#card-element');
-
-	// Handle real-time validation errors from the card Element.
-	card.addEventListener('change', function(event) {
-	  const displayError = document.getElementById('card-errors');
-	  if (event.error) {
-	    displayError.textContent = event.error.message;
-	  } else {
-	    displayError.textContent = '';
-	  }
-	});
-
-	var form = document.getElementById('payment-form');
-	form.addEventListener('submit', function(event) {
-	  	event.preventDefault();
-
-	  	stripe.createSource(card).then(function(result) {
-	    	if (result.error) {
-	      		// Inform the user if there was an error
-	      		var errorElement = document.getElementById('card-errors');
-	      		errorElement.textContent = result.error.message;
-	    	} else {
-	      		// Send the source to your server
-	      		stripeSourceHandler(result.source);
-	    	}
-	  	});
-
-	  	function stripeSourceHandler(source) {
-		  // Insert the source ID into the form so it gets submitted to the server
-		  var form = document.getElementById('payment-form');
-		  var hiddenInput = document.createElement('input');
-		  hiddenInput.setAttribute('type', 'hidden');
-		  hiddenInput.setAttribute('name', 'stripeSource');
-		  hiddenInput.setAttribute('value', source.id);
-		  form.appendChild(hiddenInput);
-
-		  // Submit the form
-		  form.submit();
-		}
-	});
-	</script>
-<% else %>
 	<ul class="actions">
-		<%= link_to "Payments", parent_payments_path(@parent), class: "btn btn-primary" %>
-		<% if parent_logged_in? && current_parent == @parent %>
+		<% if @parent.customer_id.nil? %>
+			<li><%= link_to "Add Credit Card", parent_add_payment_info_path(@parent), class: "btn btn-success" %></li>
+		<% else %>
+			<li><%= link_to "Update Credit Card", parent_add_payment_info_path(@parent), class: "btn btn-warning" %></li>
+		<% end %>
+		<% if parent_logged_in? && current_parent == @parent && !@parent.customer_id.nil? %>
+			<li><%= link_to "Payments", parent_payments_path(@parent), class: "btn btn-primary" %></li>
 			<li><%= link_to "Add Child", new_child_path, class: "btn btn-success" %></li>
 		<% end %>
 		<% if admin_logged_in? %>
 			<li><%= link_to "Back", parents_path, class: "btn btn-primary" %></li>
 		<% end %>
 	</ul>
-	</div>
+</div>
 
+	<% if @parent.customer_id.nil? %>
+		Please enter your payment info to access all functions.
+	<% else %>
+		<p><strong>Phone:</strong> <%= @parent.phone %></p>
+		<p><strong>Address:</strong> <%= address(@parent) %></p>
 
-	<p><strong>Phone:</strong> <%= @parent.phone %></p>
-	<p><strong>Address:</strong> <%= address(@parent) %></p>
+		<br>
 
-	<br>
-
-	<h3>Children</h3>
-	<% child_count = @children.count %>
-	<% ind = 0 %>
-	<% @children.each do |child| %>
-	<% if ind % 4 == 0 %>
-		<div class="row">
-	<% end %>
-		<div class="col-sm-3">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<%= child.name %>
-					<%= link_to "View", child_path(child), class: "btn btn-primary" %>
-				</div>
-				<div class="panel-body">
-					<% if child.group.nil? %>
-						<p>Group Unassigned</p>
-					<% else %>
-						<p>Member of Group #<%= child.group.id %></p>
-						<p>Price: <%= number_to_currency(child.group.price) %></p>
-						<p>Tutor: <%= link_to child.group.tutor.name, tutor_path(child.group.tutor) %></p>
-						<div class="well">
-							<h4>Hosted By</h4>
-							<p><strong>Name:</strong> <%= child.group.host.name %></p>
-							<p><strong>Phone:</strong> <%= child.group.host.phone %></p>
-							<p><strong>Address:</strong> <%= address(child.group.host) %></p>
-						</div>
-						<% datetime_arr = decode_sched(child.group) %>
-						<% datetime_arr.map! do |datetime| %>
-							<% datetime < DateTime.now ? datetime.next_week : datetime %>
+		<h3>Children</h3>
+		<% child_count = @children.count %>
+		<% ind = 0 %>
+		<% @children.each do |child| %>
+		<% if ind % 4 == 0 %>
+			<div class="row">
+		<% end %>
+			<div class="col-sm-3">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<%= child.name %>
+						<%= link_to "View", child_path(child), class: "btn btn-primary" %>
+					</div>
+					<div class="panel-body">
+						<% if child.group.nil? %>
+							<p>Group Unassigned</p>
+						<% else %>
+							<p>Member of Group #<%= child.group.id %></p>
+							<p>Price: <%= number_to_currency(child.group.price) %></p>
+							<p>Tutor: <%= link_to child.group.tutor.name, tutor_path(child.group.tutor) %></p>
+							<div class="well">
+								<h4>Hosted By</h4>
+								<p><strong>Name:</strong> <%= child.group.host.name %></p>
+								<p><strong>Phone:</strong> <%= child.group.host.phone %></p>
+								<p><strong>Address:</strong> <%= address(child.group.host) %></p>
+							</div>
+							<% datetime_arr = decode_sched(child.group) %>
+							<% datetime_arr.map! do |datetime| %>
+								<% datetime < DateTime.now ? datetime.next_week : datetime %>
+							<% end %>
+							<% datetime_arr.sort! %>
+							<p>Next Class:</p>
+							<p><%= datetime_arr.first.strftime("%A, %b %d, %Y %l:%M %p") %></p>
 						<% end %>
-						<% datetime_arr.sort! %>
-						<p>Next Class:</p>
-						<p><%= datetime_arr.first.strftime("%A, %b %d, %Y %l:%M %p") %></p>
-					<% end %>
+					</div>
 				</div>
 			</div>
-		</div>
-	<% if ind == child_count-1 or ind % 4 == 3 %>
-		</div>
+		<% if ind == child_count-1 or ind % 4 == 3 %>
+			</div>
+		<% end %>
+		<% ind += 1 %>
+		<% end %>
 	<% end %>
-	<% ind += 1 %>
-	<% end %>
-<% end %>

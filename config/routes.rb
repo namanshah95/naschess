@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :admins
   resources :parents
   get "parents/:id/payments" => "parents#payments", as: :parent_payments
+  get "parents/:id/add_payment_info" => "parents#add_payment_info", as: :parent_add_payment_info
   post "parents/:id/store_card" => "parents#store_card", as: :parent_store_card
   resources :tutors
   get "tutors/:id/lessons" => "tutors#lessons", as: :tutor_lessons

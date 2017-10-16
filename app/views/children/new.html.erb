@@ -1,7 +1,12 @@
 <div class="page-header">
 <h2>Add Child</h2>
 <ul class="actions">
-	<li><%= link_to "Back", children_path, class: "btn btn-primary" %></li>
+	<% if admin_logged_in? %>
+		<li><%= link_to "Back", children_path, class: "btn btn-primary" %></li>
+	<% end %>
+	<% if parent_logged_in? %>
+		<li><%= link_to "Back", parent_path(current_parent), class: "btn btn-primary" %></li>
+	<% end %>
 </ul>
 </div>
 

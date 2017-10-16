@@ -7,14 +7,14 @@ class ChildrenController < ApplicationController
 
 	def show
 		@child = Child.find(params[:id])
-		require_user!(admin_logged_in? || current_parent == @child.parent)
+		require_user!(admin_logged_in? || (current_user == @child.parent && !@child.parent.customer_id.nil?))
 		@attendance = Attendance.where(child: @child).sort do |a, b|
 			b.lesson.datetime <=> a.lesson.datetime
 		end
 	end
 
 	def new
-		require_user!(parent_logged_in?)
+		require_user!(admin_logged_in? || (parent_logged_in? && !current_parent.customer_id.nil?))
 		@child = Child.new
 	end
 
@@ -33,7 +33,7 @@ class ChildrenController < ApplicationController
 
 	def edit
 		@child = Child.find(params[:id])
-		require_user!(admin_logged_in? || current_user == @child.parent)
+		require_user!(admin_logged_in? || (current_user == @child.parent && !@child.parent.customer_id.nil?))
 	end
 
 	def update
@@ -50,7 +50,7 @@ class ChildrenController < ApplicationController
 
 	def drop
 		@child = Child.find(params[:id])
-		require_user!(admin_logged_in? || current_parent == @child.parent)
+		require_user!(admin_logged_in? || (current_user == @child.parent && !@child.parent.customer_id.nil?))
 
 		if @child.update_attribute(:group_id, nil)
 			flash[:notice] = @child.name + " has successfully dropped his/her group!"
