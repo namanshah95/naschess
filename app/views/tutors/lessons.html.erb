@@ -20,18 +20,16 @@
 <div class="table-responsive">
 <table class="table table-bordered">
 	<thead>
-		<td>ID</td>
 		<td>Date and Time</td>
-		<td>Group ID</td>
+		<td>Group</td>
 		<td>Notes</td>
 		<td>Attendance</td>
 	</thead>
 
 	<% @lessons.each do |lesson| %>
 		<tr>
-			<td><%= lesson.id %></td>
 			<td><%= lesson.datetime.strftime("%m/%d/%Y %l:%M %p") %></td>
-			<td><%= lesson.group.id %></td>
+			<td><%= display_name(lesson.group) %></td>
 			<td><%= lesson.notes %></td>
 			<% attendance = Array.new %>
 			<% Attendance.where(lesson: lesson).each do |a| %>

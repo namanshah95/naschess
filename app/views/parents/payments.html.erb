@@ -16,18 +16,16 @@
 <div class="table-responsive">
 <table class="table table-bordered">
 	<thead>
-		<td>ID</td>
 		<td>Date and Time</td>
-		<td>Group ID</td>
+		<td>Group</td>
 		<td>Child</td>
 		<td>Payment Amount</td>
 	</thead>
 
 	<% @attendances.each do |attendance| %>
 		<tr>
-			<td><%= attendance.id %></td>
 			<td><%= attendance.lesson.datetime.strftime("%m/%d/%Y %l:%M %p") %></td>
-			<td><%= attendance.lesson.group.id %></td>
+			<td><%= display_name(attendance.lesson.group) %></td>
 			<td><%= attendance.child.name %></td>
 			<td><%= number_to_currency(attendance.lesson.group.price) %></td>
 		</tr>

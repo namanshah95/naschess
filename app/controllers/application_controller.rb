@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :allow_iframe_requests
 
+  helper_method :display_name
+
   def after_sign_in_path_for(resource)
     return new_user_session_url unless user_signed_in?
     profile
@@ -95,5 +97,13 @@ class ApplicationController < ActionController::Base
 
     def allow_iframe_requests
       response.headers.delete('X-Frame-Options')
+    end
+
+    def display_name(group)
+      parents = Set.new
+      Child.where(group: group).each do |child|
+        parents.add(child.parent)
+      end
+      return group.tutor.name + " - " + parents.map {|parent| parent.name.split(" ").map {|name| name[0].capitalize}.join("")}.join(", ")
     end
 end

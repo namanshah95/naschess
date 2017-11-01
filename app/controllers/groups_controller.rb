@@ -83,10 +83,10 @@ class GroupsController < ApplicationController
 		end
 
 		if succ and @group.update(gp)
-			flash[:notice] = "Group #" + @group.id.to_s + " has been successfully updated!"
+			flash[:notice] = display_name(@group) + " has been successfully updated!"
 			redirect_to admin_path(current_admin)
 		else
-			flash.now[:alert] = "Not able to update Group #" + @group.id.to_s + "!"
+			flash.now[:alert] = "Not able to update " + display_name(@group) + "!"
 			render "edit"
 		end
 	end

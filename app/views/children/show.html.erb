@@ -20,7 +20,7 @@
 	<p>Group Unassigned</p>
 <% else %>
 	<div class="well">
-		<p>Member of Group #<%= @child.group.id %> </p>
+		<p>Group: <%= display_name(@child.group) %> </p>
 		<p>Tutor: <%= link_to @child.group.tutor.name, tutor_path(@child.group.tutor) %></p>
 		<% datetime_arr = decode_sched(@child.group) %>
 		<% datetime_arr.map! do |datetime| %>
