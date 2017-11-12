@@ -7,18 +7,31 @@ class LessonsController < ApplicationController
 	end
 
 	def create
+		error_msg = ""
+		should_save = true
+		@lesson = Lesson.new
 		lp = lesson_params
 
-		lp[:group] = Group.find(lp[:group])
 		dt = lp["datetime(1i)"] + lp["datetime(2i)"].rjust(2, "0") + lp["datetime(3i)"].rjust(2, "0") + lp["datetime(4i)"] + lp["datetime(5i)"]
 		lp[:datetime] = DateTime.strptime(dt, "%Y%m%d%H%M")
 		lp[:attendance].delete_if do |c_id|
 			c_id.blank?
 		end
-		
-		@lesson = Lesson.new(lp)
 
-		if @lesson.save
+		if lp[:attendance].empty?
+			error_msg = "Please select at least one child."
+			should_save = false
+		end
+
+		if lp[:group].present?
+			lp[:group] = Group.find(lp[:group])
+			@lesson = Lesson.new(lp)
+		else
+			error_msg = "Please enter a group."
+			should_save = false
+		end
+
+		if should_save and @lesson.save
 			children = Child.where(group: @lesson.group)
 			children.each do |child|
 				# Create attendance record for each child
@@ -27,8 +40,8 @@ class LessonsController < ApplicationController
 				ap[:child_id] = child.id
 				ap[:present] = lp[:attendance].include?(child.id.to_s)
 				Attendance.create!(ap)
-				# Create Stripe charge for parent of child
-				if not child.parent.customer_id.nil?
+				# Create Stripe charge for parent of child if child was present
+				if Attendance.find_by(lesson: @lesson, child: child).present and not child.parent.customer_id.nil?
 					Stripe::Charge.create(
 						amount: (@lesson.group.price * 100).to_i,
 						currency: "usd",
@@ -41,7 +54,7 @@ class LessonsController < ApplicationController
 			flash[:notice] = "New lesson has been added successfully!"
 			redirect_to tutor_lessons_path(@lesson.group.tutor)
 		else
-			flash.now[:alert] = "Not able to add lesson!"
+			flash.now[:alert] = "Not able to add lesson! " + error_msg
 			render "new"
 		end
 	end

@@ -18,7 +18,7 @@ class ParentsController < ApplicationController
 
 		@children = Child.where(parent: @parent)
 
-		query_res = Attendance.where(child: @children).sort do |a, b|
+		query_res = Attendance.where(child: @children, present: true).sort do |a, b|
 			b.lesson.datetime <=> a.lesson.datetime
 		end
 
@@ -51,7 +51,7 @@ class ParentsController < ApplicationController
 			redirect_to parent_path(@parent)
 		else
 			flash.now[:alert] = "Unable to add card!"
-			render "show"
+			render "add_payment_info"
 		end
 	end
 end

@@ -1,0 +1,38 @@
+<h3>Weekly Schedule</h3>
+<div class="table-responsive">
+	<table class="table">
+		<thead>
+		<% Date::DAYNAMES.each do |day| %>
+			<td><%= day %></td>
+		<% end %>
+		</thead>
+
+		<% while @dow_slots.any? { |k, v| !v.empty? } do %>
+		<tr>
+			<% Date::DAYNAMES.each do |day| %>
+				<% if @dow_slots[day].empty? %>
+					<td></td>
+				<% else %>
+					<% slot = @dow_slots[day].slice!(0) %>
+					<td>
+						<div class="panel panel-primary slot">
+							<div class="panel-heading">
+								<%= slot[:datetime].strftime("%l:%M %p") %>
+							</div>
+							<div class="panel-body">
+								<p>Group #<%= slot[:group].id %></p>
+								<p><strong>Host Name:</strong><br>
+								<%= slot[:group].host.name %></p>
+								<p><strong>Phone:</strong><br>
+								<%= slot[:group].host.phone %></p>
+								<p><strong>Address:</strong><br>
+								<%= address(slot[:group].host) %></p>
+							</div>
+						</div>
+					</td>
+				<% end %>
+			<% end %>
+		</tr>
+		<% end %>
+	</table>
+</div>

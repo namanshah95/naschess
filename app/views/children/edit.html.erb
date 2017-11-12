@@ -12,9 +12,8 @@
 
 <%= simple_form_for(@child) do |f| %>
 	<%= f.input :name %>
-	<%= f.input :age, collection: 5..13 %>
-	<%= f.input :grade, collection: 1..8 %>
-	<%= f.input :skill, collection: 1..10 %>
+	<%= f.input :grade, collection: ["Pre-K", "Kindergarten"] + (1..12).to_a + ["Post High School"] %>
+	<%= f.input :skill, collection: ["Beginner", "Intermediate", "Advanced"] %>
 
 	<%= f.button :submit, class: "btn-primary" %>
 <% end %>

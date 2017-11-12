@@ -23,13 +23,6 @@
 				<p>Price per class: <%= number_to_currency(group.price * Child.where(group_id: group.id).count) %></p>
 
 				<p>Tutor: <%= link_to group.tutor.name, tutor_path(group.tutor) %></p>
-				
-				<p><strong>Schedule:</strong></p>
-				<ul>
-					<% decode_sched(group).each do |block| %>
-						<li><%= block.strftime("%A %l:%M %p") %></li>
-					<% end %>
-				</ul>
 
 				<p><strong>Children:</strong></p>
 				<ul>

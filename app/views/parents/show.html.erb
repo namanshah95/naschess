@@ -50,13 +50,6 @@
 								<p><strong>Phone:</strong> <%= child.group.host.phone %></p>
 								<p><strong>Address:</strong> <%= address(child.group.host) %></p>
 							</div>
-							<% datetime_arr = decode_sched(child.group) %>
-							<% datetime_arr.map! do |datetime| %>
-								<% datetime < DateTime.now ? datetime.next_week : datetime %>
-							<% end %>
-							<% datetime_arr.sort! %>
-							<p>Next Class:</p>
-							<p><%= datetime_arr.first.strftime("%A, %b %d, %Y %l:%M %p") %></p>
 						<% end %>
 					</div>
 				</div>

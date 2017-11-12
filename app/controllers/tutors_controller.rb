@@ -9,26 +9,7 @@ class TutorsController < ApplicationController
 		@tutor = Tutor.find(params[:id])
 		require_user!(admin_logged_in? || current_user == @tutor)
 
-		# Compile ordered list of all timeslots this tutor has
-		slots = Array.new
-		Group.where(tutor: @tutor).each do |group|
-			decode_sched(group).each do |datetime|
-				slots.push({datetime: datetime, group: group})
-			end
-		end
-		slots.sort_by! do |slot|
-			slot[:datetime]
-		end
-
-		# Categorize slots into days of the week
-		@dow_slots = Hash.new()
-		Date::DAYNAMES.each do |day|
-			@dow_slots[day] = Array.new
-		end
-		slots.each do |slot|
-			@dow_slots[slot[:datetime].strftime("%A")].push(slot)
-		end
-
+		@groups = Group.where(tutor: @tutor)
 	end
 
 	def lessons
@@ -45,6 +26,6 @@ class TutorsController < ApplicationController
 			@group = params[:search].present? && params[:search][:group].present? ? params[:search][:group] : @groups
 		end
 
-		@lessons = query_res.where(datetime: @start..@end).where(group: @group)
+		@lessons = query_res.where(datetime: @start..@end, group: @group)
 	end
 end

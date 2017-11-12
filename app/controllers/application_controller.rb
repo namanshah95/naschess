@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :allow_iframe_requests
 
-  helper_method :display_name
+  helper_method :display_name 
 
   def after_sign_in_path_for(resource)
     return new_user_session_url unless user_signed_in?
