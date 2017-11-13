@@ -1,4 +1,5 @@
 class ParentsController < ApplicationController
+	skip_before_filter :verify_authenticity_token, :only => [:store_card]
 	
 	def index
 		require_user!(admin_logged_in?)
@@ -38,6 +39,7 @@ class ParentsController < ApplicationController
 	end
 
 	def store_card
+		puts "TEST"
 		@parent = Parent.find(params[:id])
 		require_user!(admin_logged_in? || current_user == @parent)
 
