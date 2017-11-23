@@ -18,7 +18,7 @@
 		<tr class=<%= child.group_id == nil ? "danger" : "" %>>
 			<td><%= child.name %></td>
 			<td><%= link_to child.parent.name, parent_path(child.parent) %></td>
-			<td><%= child.group.nil? ? "Unassigned" : "Group: " + display_name(child.group) %></td>
+			<td><%= child.group.nil? ? "Unassigned" : "Group: " + child.group.name %></td>
 			<td><%= child.group.nil? ? "N/A" : (link_to child.group.tutor.name, tutor_path(child.group.tutor)) %></td>
 			<td><%= link_to "View", child_path(child), class: "btn btn-primary" %></td>
 		</tr>

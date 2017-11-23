@@ -6,6 +6,8 @@
 </div>
 
 <%= simple_form_for(@group) do |f| %>
+	<%= f.input :name %>
+
 	<%= f.input :price %>
 
 	<%= f.input :tutor, collection: @tutors %>

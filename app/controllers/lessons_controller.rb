@@ -44,12 +44,12 @@ class LessonsController < ApplicationController
 				Attendance.create!(ap)
 				# Create Stripe charge for parent of child if child was present
 				if Attendance.find_by(lesson: @lesson, child: child).present and not child.parent.customer_id.nil?
-					# Stripe::Charge.create(
-					# 	amount: (@lesson.group.price * 100).to_i,
-					# 	currency: "usd",
-					# 	customer: child.parent.customer_id,
-					# 	description: child.name + "'s class on " + @lesson.datetime.to_s
-					# )
+					Stripe::Charge.create(
+						amount: (@lesson.price * 100).to_i,
+						currency: "usd",
+						customer: child.parent.customer_id,
+						description: child.name + "'s class on " + @lesson.datetime.to_s
+					)
 				end
 			end
 

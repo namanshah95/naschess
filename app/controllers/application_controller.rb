@@ -98,13 +98,4 @@ class ApplicationController < ActionController::Base
     def allow_iframe_requests
       response.headers.delete('X-Frame-Options')
     end
-
-    def display_name(group)
-      id = group.id.to_s.rjust(4, '0')
-      parents = Set.new
-      Child.where(group: group).each do |child|
-        parents.add(child.parent)
-      end
-      return id + " " + group.tutor.name + " - " + parents.map {|parent| parent.name.split(" ").map {|name| name[0].capitalize}.join("")}.join(", ")
-    end
 end

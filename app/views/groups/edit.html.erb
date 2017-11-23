@@ -1,11 +1,12 @@
 <div class="page-header">
-<h2>Edit Group #<%= @group.id %></h2>
+<h2>Edit <%= @group.name %></h2>
 <ul class="actions">
 	<li><%= link_to "Back", admin_path(current_admin), class: "btn btn-primary" %></li>
 </ul>
 </div>
 
 <%= simple_form_for(@group) do |f| %>
+	<%= f.input :name %>
 	<%= f.input :price %>
 	<%= f.input :tutor, collection: @tutors, selected: @group.tutor %>
 	<%= f.input :children, collection: @choices, input_html: { multiple: true }, selected: @existing_id %>

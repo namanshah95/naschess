@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
 		require_user!(admin_logged_in?)
 		@group = Group.new
 		@tutors = Tutor.all
-		@slot = 1
+		# @slot = 1
 		@choices = Child.where(group: nil).sort_by do |c|
 			c.parent
 		end
@@ -14,6 +14,8 @@ class GroupsController < ApplicationController
 	def create
 		gp = group_params
 
+		if gp[:name].blank?
+		end
 		gp[:children].delete_if do |c_id|
 			c_id.blank?
 		end
@@ -44,6 +46,9 @@ class GroupsController < ApplicationController
 		end
 		
 		if succ and @group.save
+			if @group.name.blank?
+				@group.update_attribute(:name, display_name(@group))
+			end
 			flash[:notice] = "New group has been successfully created!"
 			redirect_to admin_path(current_admin)
 		else
@@ -83,10 +88,13 @@ class GroupsController < ApplicationController
 		end
 
 		if succ and @group.update(gp)
-			flash[:notice] = display_name(@group) + " has been successfully updated!"
+			if @group.name.blank?
+				@group.update_attribute(:name, display_name(@group))
+			end
+			flash[:notice] = @group.name + " has been successfully updated!"
 			redirect_to admin_path(current_admin)
 		else
-			flash.now[:alert] = "Not able to update " + display_name(@group) + "!"
+			flash.now[:alert] = "Not able to update " + @group.name + "!"
 			render "edit"
 		end
 	end
@@ -119,6 +127,15 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-		params.require(:group).permit(:price, :tutor, :host, :children => [])
+		params.require(:group).permit(:name, :price, :tutor, :host, :children => [])
 	end
+
+	def display_name(group)
+      id = group.id.to_s.rjust(4, '0')
+      parents = Set.new
+      Child.where(group: group).each do |child|
+        parents.add(child.parent)
+      end
+      return id + " " + group.tutor.name + " - " + parents.map {|parent| parent.name.split(" ").map {|name| name[0].capitalize}.join("")}.join(", ")
+    end
 end

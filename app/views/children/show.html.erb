@@ -19,7 +19,7 @@
 	<p>Group Unassigned</p>
 <% else %>
 	<div class="well">
-		<p>Group: <%= display_name(@child.group) %> </p>
+		<p>Group: <%= @child.group.name %> </p>
 		<p>Tutor: <%= link_to @child.group.tutor.name, tutor_path(@child.group.tutor) %></p>
 		<%= link_to "Drop", drop_path, class: "btn btn-danger", method: :patch %></p>
 	</div>
@@ -31,7 +31,7 @@
 	<div class="panel-heading">Lesson #<%= a.lesson.id %></div>
 	<div class="panel-body">
 		<p><%= a.lesson.datetime.strftime("%A %b %d, %Y %l:%M %p") %></p>
-		<p><%= display_name(a.lesson.group) %></p>
+		<p><%= a.lesson.group.name %></p>
 		<p><%= a.lesson.notes %></p>
 	</div>
 </div>

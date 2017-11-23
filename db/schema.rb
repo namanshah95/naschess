@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171123194442) do
+ActiveRecord::Schema.define(version: 20171123212926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20171123194442) do
     t.integer  "tutor_id"
     t.integer  "host_id"
     t.float    "price",      default: 0.0
+    t.string   "name"
     t.index ["host_id"], name: "index_groups_on_host_id", using: :btree
   end
 

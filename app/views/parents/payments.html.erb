@@ -25,7 +25,7 @@
 	<% @attendances.each do |attendance| %>
 		<tr>
 			<td><%= attendance.lesson.datetime.strftime("%m/%d/%Y %l:%M %p") %></td>
-			<td><%= display_name(attendance.lesson.group) %></td>
+			<td><%= attendance.lesson.group.name %></td>
 			<td><%= attendance.child.name %></td>
 			<td><%= number_to_currency(attendance.lesson.price) %></td>
 		</tr>
