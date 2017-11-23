@@ -27,7 +27,7 @@
 			<td><%= attendance.lesson.datetime.strftime("%m/%d/%Y %l:%M %p") %></td>
 			<td><%= display_name(attendance.lesson.group) %></td>
 			<td><%= attendance.child.name %></td>
-			<td><%= number_to_currency(attendance.lesson.group.price) %></td>
+			<td><%= number_to_currency(attendance.lesson.price) %></td>
 		</tr>
 	<% end %>
 </table>

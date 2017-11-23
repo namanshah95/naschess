@@ -6,6 +6,7 @@
 </div>
 
 <%= simple_form_for(@group) do |f| %>
+	<%= f.input :price %>
 	<%= f.input :tutor, collection: @tutors, selected: @group.tutor %>
 	<%= f.input :children, collection: @choices, input_html: { multiple: true }, selected: @existing_id %>
 

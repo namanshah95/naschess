@@ -31,7 +31,7 @@
 	<div class="panel-heading">Lesson #<%= a.lesson.id %></div>
 	<div class="panel-body">
 		<p><%= a.lesson.datetime.strftime("%A %b %d, %Y %l:%M %p") %></p>
-		<p>Group #<%= a.lesson.group.id %></p>
+		<p><%= display_name(a.lesson.group) %></p>
 		<p><%= a.lesson.notes %></p>
 	</div>
 </div>
