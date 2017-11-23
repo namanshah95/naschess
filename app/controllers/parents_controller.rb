@@ -36,10 +36,14 @@ class ParentsController < ApplicationController
 	def add_payment_info
 		@parent = Parent.find(params[:id])
 		require_user!(admin_logged_in? || current_user == @parent)
+		@last4 = nil
+		if !@parent.customer_id.nil?
+			customer = Stripe::Customer.retrieve(@parent.customer_id)
+			@last4 = Stripe::Source.retrieve(customer.default_source).card.last4
+		end
 	end
 
 	def store_card
-		puts "TEST"
 		@parent = Parent.find(params[:id])
 		require_user!(admin_logged_in? || current_user == @parent)
 

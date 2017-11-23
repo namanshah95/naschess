@@ -19,20 +19,20 @@ class GroupsController < ApplicationController
 		end
 		gp[:tutor] = Tutor.find(gp[:tutor])
 		gp[:host] = Parent.find(gp[:host])
-		gp[:dow].delete_if do |d|
-			d.blank?
-		end
-		gp[:time].delete_if do |t|
-			t.blank?
-		end
+		# gp[:dow].delete_if do |d|
+		# 	d.blank?
+		# end
+		# gp[:time].delete_if do |t|
+		# 	t.blank?
+		# end
 		
 		@group = Group.new(gp)
 
-		datetime_arr = (0...gp[:dow].count).map do |i|
-			DateTime.strptime(gp[:dow].at(i) + gp[:time].at(i), "%A%H:%M")
-		end
+		# datetime_arr = (0...gp[:dow].count).map do |i|
+		# 	DateTime.strptime(gp[:dow].at(i) + gp[:time].at(i), "%A%H:%M")
+		# end
 
-		@group.schedule = encode_sched(datetime_arr.sort!)
+		# @group.schedule = encode_sched(datetime_arr.sort!)
 
 		succ = true
 		gp[:children].each do |c_id|
@@ -119,6 +119,6 @@ class GroupsController < ApplicationController
 	private
 
 	def group_params
-		params.require(:group).permit(:price, :tutor, :schedule, :host, :children => [], :dow => [], :time => [])
+		params.require(:group).permit(:price, :tutor, :host, :children => [])
 	end
 end
