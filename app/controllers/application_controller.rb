@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :exception
 
   before_action :authenticate_user!
 
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :state_array
 
-  before_filter :allow_iframe_requests
+  before_action :allow_iframe_requests
 
   helper_method :display_name 
 
@@ -96,6 +96,8 @@ class ApplicationController < ActionController::Base
     end
 
     def allow_iframe_requests
+      response.headers['X-CSRF-Token'] = form_authenticity_param
+      puts "LOOK AT ME: " + response.headers.to_s
       response.headers.delete('X-Frame-Options')
     end
 end
