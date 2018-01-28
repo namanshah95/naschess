@@ -1,0 +1,247 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.container {
+	padding: 0px;
+}
+h1, h2, h3, h4, h5, h6, .navbar {
+	font-family: "Arial Condensed", sans-serif;
+}
+p {
+	font-family: "Arial Narrow", sans-serif;
+	font-size: 20px;
+}
+
+.nav {
+	font-size: 20px;
+	text-align: center;
+}
+
+.navbar img {
+	width: 285px;
+	height: 109px;
+}
+
+.container-main {
+	background-color: #ffffff;
+	margin: 20px 0px;
+}
+.container-main-padded {
+	padding: 20px;
+}
+
+.container-type-1 {
+	background-color: #002060;
+	padding: 20px;
+}
+.container-type-1 h1, .container-type-1 h2 {
+	color: #0bb4e7;
+}
+.container-type-1 p {
+	color: #ffffff;
+}
+.container-type-1 .fa-angle-up {
+	color: #ffffff;
+}
+
+.container-type-2 {
+	background-color: #ffffff;
+	padding: 20px;
+	font-size: 20px;
+}
+.container-type-2 p {
+	color: #a9a9a9;
+}
+.container-type-2 ul {
+	color: #a9a9a9;
+}
+.container-type-2 h3 {
+	color: #0bb4e7;
+	text-align: right;
+}
+.container-type-2 .fa-angle-up {
+	color: #002060;
+}
+
+.container-type-3 {
+	background-color: #94b0d5;
+	padding: 20px;
+}
+.container-type-3 h1, .container-type-3 h2 {
+	color: #002060;
+}
+.container-type-3 p {
+	color: #ffffff;
+}
+.container-type-3 .fa-angle-up {
+	color: #ffffff;
+}
+
+.container-type-4 {
+	background-color: #e5e5e5;
+	padding: 20px;
+}
+.container-type-4 h2 {
+	color: #0bb4e7;
+}
+.container-type-4 p {
+	color: #a9a9a9;
+}
+.container-type-4 .fa-angle-up {
+	color: #a9a9a9;
+}
+
+.container-fluid h2 {
+	position: relative;
+}
+.container-fluid .fa-angle-up {
+	font-size: 36px;
+	position: absolute;
+	right: 0px;
+}
+
+.footer {
+	background-color: #002060;
+	padding-top: 15px;
+}
+.footer p {
+	color: #ffffff;
+	font-size: 13px;
+}
+.footer a {
+	color: #ffffff;
+}
+.footer h2 {
+	padding: 5px;
+	margin: 0px;
+}
+.footer img {
+	height: 100px;
+}
+
+/* Index Page */
+.panel-col {
+	padding: 10px;
+}
+.panel-col .panel {
+	border-radius: 0px;
+	text-align: center;
+	overflow: auto;
+	height: 100%;
+}
+.panel-col .panel-heading {
+	border-radius: 0px;
+	color: #ffffff;
+	position: relative;
+	height: 140px;
+}
+.panel-col img {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+}
+.panel-col h2 {
+	position: absolute;
+	bottom: 5px;
+	left: 75px;
+}
+#whoWeAre .panel {
+	border-color: #3f85ff;
+}
+#whoWeAre .panel-heading {
+	background-color: #3f85ff;
+}
+#whoWeServe .panel {
+	border-color: #002060;
+}
+#whoWeServe .panel-heading {
+	background-color: #002060;
+}
+#whatWeDo .panel {
+	border-color: #94b1d3;
+}
+#whatWeDo .panel-heading {
+	background-color: #94b1d3;
+}
+/* ---------- */
+
+/* Parents Page */
+#pricing-table {
+	color: #ffffff;
+	text-align: center;
+}
+#pricing-table .left-header {
+	background-color: #002060;
+}
+#pricing-table .top-header {
+	background-color: #558edf;
+}
+#pricing-table td {
+	background-color: #00b0f0;
+}
+
+#payment h2 {
+	color: #002060;
+}
+#payment p {
+	text-align: center;
+}
+#payment select {
+	font-size: 13px;
+}
+#payment label {
+	font-size: 13px;
+}
+/* ------------ */
+
+
+hr {
+	border-top: solid #558ed5 1px;
+}
+h1 {
+	text-align: center;
+}
+.special-bullets {
+	list-style-type: none;
+}
+.special-bullets li {
+	height: 41px;
+	margin: 20px 0px;
+	padding-left: 30px;
+	background-repeat: no-repeat;
+	background-position: 0px;
+	line-height: 80px;
+}
+
+@media (max-width: 768px) {
+	.navbar-nav a:hover {
+		background-color: #002060 !important;
+		color: #ffffff;
+	}
+	.navbar .active {
+		background-color: #ffffff !important;
+	}
+}
+
+@media (min-width: 768px) {
+	.vertical-divider {
+		border-left: solid #558ed5 1px;
+	}
+	.navbar {
+		position: relative;
+	}
+	.nav {
+		position: absolute;
+		right: 15px;
+		bottom: 0px;
+	}
+
+	.navbar-nav a:hover {
+		background-color: transparent !important;
+		border-bottom: 5px #002060 solid;
+	}
+	.navbar .active {
+		border-bottom: 5px #ffffff solid !important;
+	}
+}

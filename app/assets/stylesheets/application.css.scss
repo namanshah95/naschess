@@ -17,6 +17,10 @@
 @import 'bootstrap';
 @import 'font-awesome';
 
+body {
+	background-color: #ceddfb;
+}
+
 .page-header {
 	position: relative;
 	padding-bottom: 0px;
@@ -51,4 +55,8 @@ ul.actions {
 }
 .alert-alert {
 	@extend .alert-danger;
+}
+
+.table {
+	background-color: #ffffff;
 }

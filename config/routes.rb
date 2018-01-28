@@ -4,12 +4,11 @@ Rails.application.routes.draw do
   devise_for :parents, skip: :sessions
   devise_for :tutors, skip: :sessions
 
+  root :to => "pages#index"
   devise_scope :user do
     root :to => 'devise/sessions#new'
   end
 
-  get "groups/add_slot", as: "add_slot"
-  get "groups/remove_slot", as: "remove_slot"
   get "groups/update_host", as: "update_host"
   resources :groups
   resources :children
@@ -25,4 +24,10 @@ Rails.application.routes.draw do
 
   get "lessons/update_attendance", as: "update_attendance"
   resources :lessons
+
+  get "pages/index" => "pages#index"
+  get "pages/parents" => "pages#parents"
+  get "pages/tutors" => "pages#tutors"
+  get "pages/kidscorner" => "pages#kidscorner"
+  get "pages/contact" => "pages#contact"
 end
