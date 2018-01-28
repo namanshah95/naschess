@@ -1,0 +1,35 @@
+<div class="container-fluid footer" align="center">
+	<div class="row">
+		<div class="col-sm-6 col-xs-12">
+			<div class="col-sm-6 col-xs-6">
+				<p><%= link_to "HOME", root_path %></p>
+				<p><%= link_to "KIDS CORNER", pages_kidscorner_path %></p>
+				<p><%= link_to "PARENTS", pages_parents_path %></p>
+				<p><%= link_to "TUTORS", pages_tutors_path %></p>
+				<p><%= link_to "CONTACT", pages_contact_path %></p>
+				<p><%= link_to "DASHBOARD", new_user_session_path %></p>
+			</div>
+		    <div class="col-sm-6 col-xs-6">
+		    	<p><%= link_to "HOW IT WORKS", pages_parents_path(anchor: "howItWorks") %></p>
+		    	<p><%= link_to "REGISTRATION", pages_parents_path(anchor: "registration") %></p>
+		    	<p><%= link_to "MAKE A PAYMENT", pages_parents_path(anchor: "payment") %></p>
+			</div>
+		</div>
+		<div class="col-sm-6 col-xs-12">
+			<div class="col-sm-6 col-xs-6 vertical-divider">
+				<%= link_to pages_parents_path(anchor: "registration") do %>
+				    <h2>Parents</h2>
+				    <%= image_tag("/img/RegisterHere.png", class: "img-responsive") %>
+				<% end %>
+			</div>
+			<div class="col-sm-6 col-xs-6">
+				<%= link_to pages_tutors_path do %>
+				    <h2>Tutors</h2>
+				    <%= image_tag("/img/ApplyHere.png", class: "img-responsive") %>
+				<% end %>
+		    </div>
+	    </div>
+	</div>
+	<hr>
+	<p>All Rights Reserved &copy; 2017 NAS Chess Academy, LLC.</p>
+</div>

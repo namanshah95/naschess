@@ -1,0 +1,101 @@
+<div class="container container-body">
+	<%= render partial: "navbar", locals: {index: 0} %>
+	<div class="container container-main container-main-padded">
+		<div class="container-fluid container-type-1">
+			<div class="row">
+				<div class="col-sm-7">
+					<div id="myCarousel" class="carousel slide" data-ride="carousel">
+					    <!-- Indicators -->
+					    <ol class="carousel-indicators">
+					      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+					      <li data-target="#myCarousel" data-slide-to="1"></li>
+					      <li data-target="#myCarousel" data-slide-to="2"></li>
+					    </ol>
+
+					    <!-- Wrapper for slides -->
+					    <div class="carousel-inner">
+					      <div class="item active">
+					        <img src="/img/Stock1.jpg" alt="NAS Chess 1" style="width:100%;">
+					      </div>
+
+					      <div class="item">
+					        <img src="/img/Stock2.jpg" alt="NAS Chess 2" style="width:100%;">
+					      </div>
+					    
+					      <div class="item">
+					        <img src="/img/Stock3.jpg" alt="NAS Chess 3" style="width:100%;">
+					      </div>
+					    </div>
+
+					    <!-- Left and right controls -->
+					    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+					      <span class="glyphicon glyphicon-chevron-left"></span>
+					      <span class="sr-only">Previous</span>
+					    </a>
+					    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+					      <span class="glyphicon glyphicon-chevron-right"></span>
+					      <span class="sr-only">Next</span>
+					    </a>
+				  	</div>
+				</div>
+				<div class="col-sm-5">
+					<h1>Welcome to NAS Chess!</h1>
+					<p>At NAS Chess Academy our mission is to create an educational and challenging environment for children to learn the greatest strategy game known to man... while having lots of fun! The exciting game of Chess engages children and builds important skills, including: spatial thinking, problem solving, analytical thinking, and emotional maturity. Exposing your child to Chess at an early age may help them develop a healthy appreciation of strategy, competition, and discipline. So, get started today!</p>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="container-fluid container-type-2">
+			<div class="row panel-group">
+				<div class="col-sm-4 panel-col" id="whoWeAre">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<img src="img/King.png">
+							<h2>WHO WE ARE</h2>
+						</div>
+						<div class="panel-body">
+							<p>We have a team of hand-picked tutors who not only love Chess, but have been selected because of their ability to teach young children in a passionate, encouraging, and charismatic way, ensuring that your child will learn Chess and have fun along the way.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4 panel-col" id="whoWeServe">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<img src="img/Queen.png">
+							<h2>WHO WE SERVE</h2>
+						</div>
+						<div class="panel-body">
+							<p>NAS Chess Academy is for children in Pre-K to 8th grade. Currently, we operate in Bergen County, NJ. <br>
+							If you live outside this region and are interested in enrolling your child, contact us to see if we can spread the joy of Chess in your area!</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4 panel-col" id="whatWeDo">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<img src="img/Knight.png">
+							<h2>WHAT WE DO</h2>
+						</div>
+						<div class="panel-body">
+							<p>Instead of you coming to us, we’ll come to you! We match a group of students with one of our tutors who will come to a designated location once a week to provide Chess lessons to your child and his or her friends.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<%= render partial: "footer" %>
+	</div>
+</div>
+
+<script>
+$(document).ready(function() {
+	$(window).resize(function() {
+		var max_height = 0;
+		$('.panel-col').each(function () {
+			max_height = ($(this).height() > max_height ? $(this).height() : max_height); 
+		});
+		$('.panel-col').height(max_height);
+	});
+	$(window).resize();
+});
+</script>

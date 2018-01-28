@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  before_action :allow_iframe_requests
+
   helper_method :current_admin, :current_parent, :current_tutor, :admin_logged_in?, :parent_logged_in?, :tutor_logged_in?, :require_user!
 
   helper_method :decode_sched, :encode_sched
@@ -12,8 +14,6 @@ class ApplicationController < ActionController::Base
   helper_method :address
 
   helper_method :state_array
-
-  before_action :allow_iframe_requests
 
   helper_method :display_name 
 
@@ -96,8 +96,6 @@ class ApplicationController < ActionController::Base
     end
 
     def allow_iframe_requests
-      response.headers['X-CSRF-Token'] = form_authenticity_param
-      puts "LOOK AT ME: " + response.headers.to_s
-      response.headers.delete('X-Frame-Options')
+      response.headers.delete("X-Frame_Options")
     end
 end

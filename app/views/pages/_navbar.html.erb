@@ -1,0 +1,11 @@
+<div class="container-fluid navbar">
+	<%= link_to image_tag("/img/Logo.png", class: "img-responsive"), root_path %>
+	<ul class="nav navbar-nav navbar-right">
+	    <li><%= link_to "HOME", root_path, class: (index == 0) ? "active" : "" %></li>
+	    <li><%= link_to "KIDS CORNER", pages_kidscorner_path, class: (index == 1) ? "active" : "" %></li>
+	    <li><%= link_to "PARENTS", pages_parents_path, class: (index == 2) ? "active" : "" %></li>
+	    <li><%= link_to "TUTORS", pages_tutors_path, class: (index == 3) ? "active" : "" %></li>
+	    <li><%= link_to "CONTACT", pages_contact_path, class: (index == 4) ? "active" : "" %></li>
+	    <li><%= link_to "DASHBOARD", new_user_session_path, class: (index == 5) ? "active" : "" %></li>
+	</ul>
+</div>

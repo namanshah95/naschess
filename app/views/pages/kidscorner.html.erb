@@ -1,0 +1,22 @@
+<div class="container container-body">
+	<%= render partial: "navbar", locals: {index: 1} %>
+	<div class="container container-main">
+		<div class="container-fluid container-type-2">
+			<h1>Daily Chess Puzzle</h1>
+			<div class="row">
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-8">
+					<p>Solve the Chess Puzzle below. There are three difficulty levels you can try. Come back every day to try a new set of puzzles!</p>
+					<div style="width: 100%; text-align: center;">
+					<iframe width="310" scrolling="no" height="341" frameborder="0" src="http://www.shredderchess.com/online/playshredder/
+gdailytactics.php?mylang=en&mysize=32"></iframe>
+					</div>
+				</div>
+				<div class="col-sm-2">
+				</div>
+			</div>
+		</div>
+		<%= render partial: "footer" %>
+	</div>
+</div>

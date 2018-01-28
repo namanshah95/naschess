@@ -1,0 +1,115 @@
+<div class="container container-body">
+	<%= render partial: "navbar", locals: {index: 2} %>
+	<div class="container container-main">
+		<div class="container-fluid container-type-2">
+			<div class="row">
+				<div class="col-sm-6">
+					<h2>WHAT WOULD YOU LIKE TO DO?</h2>
+					<ul class="special-bullets">
+						<a href="#howItWorks">
+							<li style="background-image: url('/img/bulletKing.png');">Learn How It Works</li>
+						</a>
+						<a href="#registration">
+							<li style="background-image: url('/img/bulletBishop.png');">Registration</li>
+						</a>
+						<a href="#payment">
+							<li style="background-image: url('/img/bulletKnight.png');">Make a Payment</li>
+						</a>
+					</ul>
+				</div>
+				<div class="col-sm-6">
+					<img class="img-responsive" src="/img/Stock4.jpg" style="border: 1px solid #002060">
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid container-type-1" id="howItWorks">
+			<h2>How It Works<a href="#"><i class="fa fa-angle-up"></i></a></h2>
+			<p>Our Chess tutoring services are for children in Pre-K through 8th grade. Currently, we operate in Bergen County, NJ. Once you register your child, we will work with you to match your child up with other children in your area who are in a similar age group - ideally in a group of four. The tutoring services take place at one of the parents' houses.</p>
+			<br>
+			<p>Next, we match the group up with one of our hand-selected tutors who not only love Chess, but have also been chosen because of their ability to teach young children in a captivating and enticing manner, ensuring that your child will learn Chess and have a lot of fun in the process!</p>
+			<br>
+			<p>Finally, we select a start date and time slot that works for the parents and the tutor, and let the fun begin!</p>
+		</div>
+		<div class="container-fluid container-type-4" id="registration">
+			<h2>Registration<a href="#"><i class="fa fa-angle-up"></i></a></h2>
+			<p>Fill out the form below to enroll your children today!</p>
+			<script type="text/javascript" src="https://form.jotform.us/jsform/71347108950153"></script>
+		</div>
+		<div class="container-fluid container-type-2" id="payment">
+			<h2>Make a Payment<a href="#"><i class="fa fa-angle-up"></i></a></h2>
+
+			<div class="row">
+				<div class="col-sm-1">
+				</div>
+				<div class="col-sm-4">
+					<p style="text-decoration: underline;">4+ students per class:</p>
+<!-- START: CCV15 PAYPAL BUTTON -->
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="36GV7CVEXV23Y">
+<input type="hidden" name="on0" value="How many classes?">
+<div class="form-group">
+<label for="sel1">How many classes?</label>
+<select name="os0" class="form-control" id="sel1">
+	<option value="Ten (10) Classes - Super Value Pack!">Ten (10) Classes - Super Value Pack! $135.00 USD</option>
+	<option value="Five (5) Classes - Value Pack!">Five (5) Classes - Value Pack! $70.00 USD</option>
+	<option value="Single (1) Class">Single (1) Class $15.00 USD</option>
+</select>
+</div>
+<input type="hidden" name="on1" value="Email Address:">
+<div class="form-group">
+<label for="email1">Email Address:</label>
+<input type="text" name="os1" maxlength="200" class="form-control" id="email1">
+</div>
+<input type="hidden" name="currency_code" value="USD">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+<!-- END: CCV15 PAYPAL BUTTON -->					
+				</div>
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-4">
+					<p style="text-decoration: underline;">3 students per class:</p>
+<!-- START: CCV20 PAYPAL BUTTON -->
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="7LGJBZR5M636A">
+<input type="hidden" name="on0" value="How many classes?">
+<div class="form-group">
+<label for="sel2">How many classes?</label>
+<select name="os0" class="form-control" id="sel2">
+	<option value="Ten (10) Classes - Super Value Pack!">Ten (10) Classes - Super Value Pack! $180.00 USD</option>
+	<option value="Five (5) Classes - Value Pack!">Five (5) Classes - Value Pack! $95.00 USD</option>
+	<option value="Single (1) Class">Single (1) Class $20.00 USD</option>
+</select>
+</div>
+<input type="hidden" name="on1" value="Email Address:">
+<div class="form-group">
+<label for="email2">Email Address:</label>
+<input type="text" name="os1" maxlength="200" class="form-control" id="email2">
+</div>
+<input type="hidden" name="currency_code" value="USD">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+<!-- END: CCV20 PAYPAL BUTTON -->
+
+				</div>
+				<div class="col-sm-1">
+				</div>
+			</div>
+
+		<p><br>If you prefer to pay by check, please mail a check to:<br><br>
+		NAS Chess Academy<br>
+		191 Main Street, Suite D3<br>
+		Farmington, CT 06032</p>
+		
+	    </div>
+	    <%= render partial: "footer" %>
+    </div>
+</div>
