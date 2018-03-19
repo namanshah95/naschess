@@ -53,6 +53,7 @@ class ParentsController < ApplicationController
 		)
 
 		if @parent.update_attribute(:customer_id, customer.id)
+			Activity.create!({activity_type: "UPDATE_CC", user: @parent})
 			flash[:notice] = "Card successfully added!"
 			redirect_to parent_path(@parent)
 		else

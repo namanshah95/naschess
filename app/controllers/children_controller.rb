@@ -23,6 +23,7 @@ class ChildrenController < ApplicationController
 		@child.parent = current_parent
 
 		if @child.save
+			Activity.create!({activity_type: "ADD_CHILD", user: @child.parent, object: @child.id})
 			flash[:notice] = "New child has been added successfully!"
 			redirect_to child_path(@child)
 		else

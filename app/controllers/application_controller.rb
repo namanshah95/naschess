@@ -15,7 +15,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :state_array
 
-  helper_method :display_name 
+  helper_method :display_name
+
+  helper_method :activity_description
 
   def after_sign_in_path_for(resource)
     return new_user_session_url unless user_signed_in?
@@ -93,6 +95,33 @@ class ApplicationController < ActionController::Base
 
     def state_array
       %w(AK AL AR AZ CA CO CT DC DE FL GA HI IA ID IL IN KS KY LA MA MD ME MI MN MO MS MT NC ND NE NH NJ NM NV NY OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY)
+    end
+
+    def activity_description(activity)
+      case activity.activity_type
+      when "UPDATE_CC"
+        parent_link = view_context.link_to activity.user.name, parent_path(activity.user)
+        return parent_link + " has updated his/her credit card."
+      when "TUTOR_SIGNUP"
+        tutor_link = view_context.link_to activity.user.name, tutor_path(activity.user)
+        return "Tutor " + tutor_link + " has created an account."
+      when "PARENT_SIGNUP"
+        parent_link = view_context.link_to activity.user.name, parent_path(activity.user)
+        return "Parent " + parent_link + " has created an account."
+      when "ADD_LESSON"
+        tutor_link = view_context.link_to activity.user.name, parent_path(activity.user)
+        lesson = Lesson.find(activity.object)
+        return tutor_link + " has added a new lesson for group " + lesson.group.name + "."
+      when "ADD_CHILD"
+        parent_link = view_context.link_to activity.user.name, parent_path(activity.user)
+        child = Child.find(activity.object)
+        child_link = view_context.link_to child.name, child_path(child)
+        return parent_link + " has added child " + child_link + "."
+      when "DELETE_CHILD"
+        parent_link = view_context.link_to activity.user.name, parent_path(activity.user)
+        child = Child.find(activity.object)
+        return parent_link + " has deleted child " + child.name + "."
+      end
     end
 
     def allow_iframe_requests

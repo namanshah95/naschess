@@ -4,6 +4,6 @@ class AdminsController < ApplicationController
 		@admin = Admin.find(params[:id])
 		require_user!(current_user == @admin)
 
-		@groups = Group.all
+        @activities = Activity.order(created_at: :desc)
 	end
 end

@@ -52,7 +52,7 @@ class LessonsController < ApplicationController
 					)
 				end
 			end
-
+			Activity.create!({activity_type: "ADD_LESSON", user: @lesson.group.tutor, object: @lesson.id})
 			flash[:notice] = "New lesson has been added successfully!"
 			redirect_to tutor_lessons_path(@lesson.group.tutor)
 		else

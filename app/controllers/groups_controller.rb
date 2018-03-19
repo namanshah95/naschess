@@ -1,5 +1,11 @@
 class GroupsController < ApplicationController
 
+	def index
+		require_user!(admin_logged_in?)
+
+		@groups = Group.all
+	end
+
 	def new
 		require_user!(admin_logged_in?)
 		@group = Group.new
