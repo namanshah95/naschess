@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, skip: [:registrations]
   devise_for :admins, skip: [:registrations, :sessions]
-  devise_for :parents, skip: :sessions
-  devise_for :tutors, skip: :sessions
+  devise_for :parents, skip: :sessions, :controllers => {:registrations => "parent_registrations"}
+  devise_for :tutors, skip: :sessions, :controllers => {:registrations => "tutor_registrations"}
 
   root :to => "pages#index"
   devise_scope :user do

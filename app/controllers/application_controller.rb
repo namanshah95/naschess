@@ -104,10 +104,10 @@ class ApplicationController < ActionController::Base
         return parent_link + " has updated his/her credit card."
       when "TUTOR_SIGNUP"
         tutor_link = view_context.link_to activity.user.name, tutor_path(activity.user)
-        return "Tutor " + tutor_link + " has created an account."
+        return tutor_link + " has created a Tutor account."
       when "PARENT_SIGNUP"
         parent_link = view_context.link_to activity.user.name, parent_path(activity.user)
-        return "Parent " + parent_link + " has created an account."
+        return parent_link + " has created a Parent account."
       when "ADD_LESSON"
         tutor_link = view_context.link_to activity.user.name, parent_path(activity.user)
         lesson = Lesson.find(activity.object)
