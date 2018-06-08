@@ -109,7 +109,7 @@ class ApplicationController < ActionController::Base
         parent_link = view_context.link_to activity.user.name, parent_path(activity.user)
         return parent_link + " has created a Parent account."
       when "ADD_LESSON"
-        tutor_link = view_context.link_to activity.user.name, parent_path(activity.user)
+        tutor_link = view_context.link_to activity.user.name, tutor_path(activity.user)
         lesson = Lesson.find(activity.object)
         return tutor_link + " has added a new lesson for group " + lesson.group.name + "."
       when "ADD_CHILD"
